@@ -14,9 +14,10 @@ git init to setup local folder to local git repository
 git remote add origin https://github.com/StewieTech/Academy.git
 git add -> adds to the staging area
 git status -> checks what's in the staging area
-
 git commit -> adds file to local git repository
 
+git diff -> shows changes
+git diff -- cached
 
 ## Documentation Links
 
