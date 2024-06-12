@@ -2,7 +2,7 @@
 
 Google Git and download Git to your computer
 
-## Git Config 
+### Git Config 
 The configuration file is located at `.git/config`. There are global and local settings, including the default editor, default branch, and aliases.
 
 
@@ -31,7 +31,7 @@ git restore --staged .  -> If I have added some changes in the staging area but 
 git restore .-> discards all changes in the working directory
 ```
 ---
-Git Log
+### Git Log
 ```
 git log -> shows all the previous commit messages; press Q to quit
 git checkout 2d9bd0e963658749441a6daf1f066fb265de0c18 can have look at a previous commit
@@ -43,7 +43,7 @@ git log --graph -> shows branch
 git log --grep='example'
 ```
 ---
-## Documentation Links
+### Documentation Links
 ````
 - **StringFormat**: [Java String.format Documentation](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html#format(java.lang.String,java.lang.Object...))
 

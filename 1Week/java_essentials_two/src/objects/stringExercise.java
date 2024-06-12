@@ -1,4 +1,4 @@
-// package Academy.1Week.java_essentials_two.src.objects;
+package Academy.1Week.java_essentials_two.src.objects;
 
 public class stringExercise {
 
