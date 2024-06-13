@@ -15,9 +15,9 @@ public class Array {
     int i7 = 4; 
     int i8 = 4; 
 
-    int[] nums = { 4, 5, 7, 2, 19, 14, 35, 46, 71, 28};
+    int[] Array = { 4, 5, 7, 2, 19, 14, 35, 46, 71, 28};
 
-    int [] nums2 = new int[10];
+    int [] secondArray = new int[10];
 
     for (int num: nums) {
     	System.out.println(num);

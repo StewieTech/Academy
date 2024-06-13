@@ -36,6 +36,7 @@ git restore .-> discards all changes in the working directory
 git log -> shows all the previous commit messages; press Q to quit
 git checkout 2d9bd0e963658749441a6daf1f066fb265de0c18 can have look at a previous commit
 git checkout master
+git checkout . -> this also removes all of your changes
 git log --oneline
 git revert ce4b3b1 -> goes back to a previous state
 git log -p  -> shows all the changes that happened
@@ -55,3 +56,6 @@ Here are some of the format specifiers and their meanings:
 %t: Formats the argument as a date or time.
 %%: Outputs a literal percent (%) sign.
 ```
+### Documentation Links
+```
+right click the project explorer, click import, browse folder to the git cloned respository. Then select the POM file. 
