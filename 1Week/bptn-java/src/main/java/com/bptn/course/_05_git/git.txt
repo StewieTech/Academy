@@ -1,0 +1,54 @@
+
+
+1. Configuration of Git Client on our laptop (Just one time) 
+   1. verify the the git installation
+     - $ git --version
+   2. verify your username and email in the configuration
+     - $ git config --list  (hit Q to leave the panel)
+   3. if your username and email is not configured (make sure you use the same email 
+     you used to sign up on GitHub.
+     - $ git config --global user.name "Carlos Zegarra"
+     - $ git config --global user.email cgzegarra@gmail.com
+     
+     
+2. UPLOAD A NEW PROJECT TO GITHUB (bptn-05-java)
+
+   1. Create Remote Repository (GitHub)
+      - Go to www.github.com
+      - Create a new repository (private)
+   2. Create Local Repository (On our laptop)
+      - add a .gitignore file to the project's root folder to exclude the unnecessary files.
+      - $ git status
+        - to check the status of our repo
+      - $ git init
+        - MAKE SURE you run git init in the ROOT folder
+        - run this just one time with NEW PROJECTS, if you run it with an old project, you
+          will the your git history.
+      - $ git add .
+        - add all the files to my local repo.
+      - $ git commit -m "first commit" 
+      
+   3. Link Remote and Local Repository
+      - $ git remote add origin https://github.com/bptn-java-developer/bptn-05-java.git
+        - copy the URL from GitHub.
+      
+   4. Upload our project 
+      - $ git push -u origin master
+        - $ git push -u origin main
+        - Authorize Git Client to access your GitHub
+      - Windows users have to Authorize Git Client to access your GitHub in a pop-up
+        window.
+      - Mac Users: need to generate a token on GitHub
+        - Go to Profile in GitHub
+        - Settings 
+        - Developer Settings (left side bar, all the way down)
+        - Personal Access Tokens / Token Classic
+        - Generate new Token / New token Classic
+        - Type a name for your token (note)
+        - check: repo/ workflow/ admin:org/ admin:public_key/ notifications / user /project
+        - Generate Token
+        - Provide Git Client with your token instead of your password. 
+        
+   5. Refresh the page on GitHub to verify the project was uploaded correctly.
+      
+      
