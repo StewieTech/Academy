@@ -1,14 +1,20 @@
 
 public class ShoeRackExampleFinal {
     public static void main(String[] args) {
-        // Declaring and allocating an array of shoes
+    
+
+        // The variable shoeRack is a reference to the array and is stored on the stack
+   
+        String[] shoeRack ; 
         
         //First, we declare a variable shoeRack which is of type String array. 
-        // The variable (a reference to the array) is stored on the stack
-        String[] shoeRack ; 
+             // Shoe rack is a reference variable. and it's stored on the stack as it is declared within the main method
 // 
-        // We then allocate memory for the shoeRack array on the heap by initializing it with new String[5], which means we reserve space for 5 elements in this array on the heap.
-        shoeRack = new String[5];
+
+
+// We then allocate memory for the shoeRack array on the heap by initializing it with new String[5], which means we reserve space for 5 elements in this array on the heap.
+// We are creating an array of 5 String references that are created in the heap
+shoeRack = new String[5];
         
         // Creating shoe objects
         String sneakers = "Sneakers";
@@ -24,9 +30,10 @@ public class ShoeRackExampleFinal {
         // Creating shoe objects and initializing the array with shoes in one line
         // String[] shoeRack = {"Sneakers", "Boots", "Sandals"};
         
+        // String firstPair = shoeRack[0];
+        
         // Accessing and printing the type of the first pair of shoes
-        String firstPair = shoeRack[0];
-        System.out.println(firstPair); // Output: Sneakers
+        System.out.println(shoeRack[0]); // Output: Sneakers
         }
         }
         
