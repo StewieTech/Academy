@@ -80,4 +80,78 @@ ClassName.staticMethod();
 
 ### Access Modifier
 ![alt text](image-1.png)
+![alt text](image-5.png)
 
+### UML
+```
+- + or - – Along with # and ~, these symbols represent the visibility of the attribute:
+- +: a visibility setting of public means that any other class can access this attribute.
+- -: a visibility setting of private means that these attributes are only available to this class itself.
+- #: a visibility setting of protected is somewhere in between private and public–it means that these attributes can be accessed by this class or its subclasses, but nothing else.
+- ~: a visibility setting of package/default means that any other class within the same package can access this attribute. 
+Class Diagram is the most important
+```
+![alt text](image-2.png)
+![alt text](image-3.png)
+```
+Inheritance is exactly what it sounds like: it shows which subclasses (aka child classes) inherit from a superclass (aka parent class). This keeps us from having to write out lists of attributes/methods that a group of classes share. Note that this is an empty arrow, not a filled in one, just as aggregation is an empty diamond. These differences are often very important.
+
+Association is used to connect classes based on other kinds of relationships, such as connecting a student class to a computer class to show which kind of computer they use. Without a student to own the computer, we may still need to know about the computer class for our lessonCreation class or something similar. There's no inheritance involved here, but we can connect the two with a simple line to show association. We can also write the relationship on the line we draw, such as "uses", if we so choose. 
+
+Aggregation, which is just a fancy word for "adding up", is used to show a relationship between more singular entities and what they combine to form. For example, you can have a student class without a cohort, but a cohort can't exist without a number of students. In this case, the open diamond would be drawn on the cohort class, with a simple line leading to the student class.
+
+Composition is the opposite of aggregation, and it's easiest to think about in terms of "these parts compose the whole, but they can't exist without the whole." To continue with our student example, without a course class, a grades class, or a rollSheet class wouldn't exist. 
+
+```
+![alt text](image-4.png)
+### Wrapper Class
+
+```java
+- Char -> Character , int -> Integer
+Converting from a primitive data type into a wrapper class object is straightforward. For example, to convert int into an Integer object, we can do the following:
+Integer intObject = Integer.valueOf(100); // or
+AutoBoxing
+Integer intObject = 100;
+
+// In older versions of Java, no need to do this anymore:
+Integer i = new Integer(2); // create an object with 2 in it
+Double d = new Double(3.5); // create an object with 3.5 in it
+
+// In newer versions of Java (9+), make sure you do this:
+Integer i = 2;
+Double d = 3.5;
+
+We declare and instantiate an Integer object by passing a primitive int value of 100.  If we want to convert the Integer object back to an int, we can do the following:
+int intPrimitive = intObject.intValue();
+Unboxing
+int intPrimitive = intObject;
+
+Useful example:
+public class Test2 {
+   public static void main(String[] args) {
+     Integer i = 2;
+     Double d = 3.5;
+     System.out.println( i.intValue() ); // intValue() returns the primitive value 2
+     System.out.println( d.doubleValue() ); // 3.5
+
+     String ageStr = "16";
+     // Integer.parseInt and Double.parseDouble are often used to
+     // convert an input string to a number so you can do math on it.
+     System.out.println("Age " + ageStr + " in 10 years is " + (Integer.parseInt(ageStr) + 10) ); // 16 26
+     System.out.println("Note that + with strings does concatenation, not addition: " + (ageStr + 10));
+   }
+   """
+   Output:
+        2
+        3.5
+        Age 16 in 10 years is 26
+        Note that + with strings does concatenation, not addition: 1610
+   """
+}
+
+
+
+String can be an int
+int num = Integer.parseInt("100");
+
+```
