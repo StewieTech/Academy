@@ -155,3 +155,6 @@ String can be an int
 int num = Integer.parseInt("100");
 
 ```
+## Thursday
+### Exceptions
+![alt text](image-6.png)
