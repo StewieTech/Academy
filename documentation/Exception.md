@@ -77,6 +77,7 @@ By following these best practices, your wedding planning (and coding) will be sm
 ## Other important facts
 - Exceptoins only happen at runtime
 - Exceptions are an abnormal situation during the execution of a program
+calls the constructor of the parent Exception class, passing the message to it.
 ### Throwable
 - Superclass of exceptions,all errors and exceptions are subclasses of exceptions
 
@@ -104,10 +105,42 @@ As we've seen, an exception is an unwanted or unexpected event which occurs duri
 Unchecked Exception
 - Java does not force us to handle it
 - it's up to us to handle it
+Unchecked exceptions are not checked at compile time. They are derived from RuntimeException and its subclasses. You are not required to handle or declare unchecked exceptions.
+
+- HOW DO WE KNOW UNCHECKED EXCEPTIONS MAY OCCUR IN JAVA !!!
+1) Experience
+2) Testing helps 
+
+- We can easily recognize unchecked exceptions because All of them have RuntimeException as Ancestor
 
 Check Exception
 - Java forces us to do something about the exception.
+- classes that use resources usuallu have checked exceptions
+Checked exceptions are exceptions that are checked at compile time. If a method throws a checked exception, the method must either handle the exception using a try-catch block or declare it using the throws keyword in its method signature.
+- 
+2) propagate to the caller
+```
+main()
+  |
+  v
+executeFileProcessing()
+  |
+  v
+process2()
+  |
+  v
+Exception Thrown
+  |
+  v
+Propagates up to executeFileProcessing()
+  |
+  v
+Propagates up to main()
+  |
+  v
+Caught in main()
 
+```
 
 Can anyone spot the issue here?
 
