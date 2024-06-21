@@ -9,12 +9,12 @@ public class CustomException {
     }
 
     public static class DietaryRestrictionException extends Exception {
-        public DietaryRestrictionException(String message) {
-            super(message);
+        public DietaryRestrictionException(String message, Throwable cause) {
+            super(message, cause);
         }
     }
 
-    public static class OutOfBoundsException extends Exception {
+    public static class OutOfBoundsException extends RuntimeException {
         public OutOfBoundsException(String message, Throwable cause) {
             super(message, cause);
         }
@@ -30,18 +30,18 @@ public class CustomException {
                 if (guest != null) {
                     currentSize++;
                     if (guest.equals(conflictingGuest)) {
-                        throw new ConflictGuestsException("Cannot sit our " + newGuest + " with " + conflictingGuest);
+                        throw new ConflictGuestsException("Cannot sit our guest " + newGuest + " with " + conflictingGuest + " as they hate each other!");
                     }
                     if (isVegan && guest.equals("MeatLover")) { 
-                        throw new DietaryRestrictionException("Cannot seat vegan guest " + newGuest + " with meat lover " + guest);
+                        throw new DietaryRestrictionException("Cannot seat vegan guest " + newGuest + " with meat lover " + guest,  new DietaryRestrictionException("Dietary restriction conflict.", null));
                     }
                 }
             }
-
             if (currentSize >= 8) {
                 throw new ArrayIndexOutOfBoundsException("Table cannot have more than 8 guests.");
             }
-
+            
+            // the main functionality 
             for (int i = 0; i < guests.length; i++) {
                 if (guests[i] == null) {
                     guests[i] = newGuest;
@@ -53,7 +53,7 @@ public class CustomException {
             throw new OutOfBoundsException("Exceeded table capacity.", e);
         }
     }
-    
+   
     public static void displayGuests(String[] guests) {
         System.out.println("Guest List:");
         int numberOfGuests = 0;
@@ -72,21 +72,22 @@ public class CustomException {
     public static void main(String[] args) {
         String[] guests = new String[8];
         try {
-//            addGuestToTable(guests, "Alice", "Bob", false);
-//            System.out.println(currentSize) ;
-//            addGuestToTable(guests, "Bob", "Alice", false); // This will throw ConflictGuestsException
-//            System.out.println(currentSize) ;
         	
+            addGuestToTable(guests, "Alice", "Bob", false);
+//            addGuestToTable(guests, "Bob", "Alice", false); // This will throw ConflictGuestsException
             addGuestToTable(guests, "Charlie", "", false); 
             addGuestToTable(guests, "Ashley", "", false); 
             addGuestToTable(guests, "John", "", false); 
             addGuestToTable(guests, "Marcus", "", false); // This will throw ArrayIndexOutOfBoundsException
             addGuestToTable(guests, "Suzanne", "", false); // This will throw ArrayIndexOutOfBoundsException
             addGuestToTable(guests, "Vincent", "", false); // This will throw ArrayIndexOutOfBoundsException
-//            displayGuests(guests) ;
-//            addGuestToTable(guests, "MeatLover", "", false); // This will throw DietaryRestrictionException if there's a "MeatLover"
-            addGuestToTable(guests, "VeganGuest", "", true); // This will throw DietaryRestrictionException if there's a "MeatLover"
-//            displayGuests(guests) ;
+            addGuestToTable(guests, "MeatLover", "", false); // This will throw DietaryRestrictionException if there's a "MeatLover"
+//            addGuestToTable(guests, "VeganGuest", "", true); // This will throw DietaryRestrictionException if there's a "MeatLover"
+            addGuestToTable(guests, "ExtraGuest", "", false); // This will throw ArrayIndexOutOfBoundsException
+            addGuestToTable(guests, "ExtraGuest", "", false); // This will throw ArrayIndexOutOfBoundsException
+            addGuestToTable(guests, "ExtraGuest", "", false); // This will throw ArrayIndexOutOfBoundsException
+            addGuestToTable(guests, "ExtraGuest", "", false); // This will throw ArrayIndexOutOfBoundsException
+            addGuestToTable(guests, "ExtraGuest", "", false); // This will throw ArrayIndexOutOfBoundsException
             addGuestToTable(guests, "ExtraGuest", "", false); // This will throw ArrayIndexOutOfBoundsException
             addGuestToTable(guests, "Marco", "", false); // This will throw ArrayIndexOutOfBoundsException
             displayGuests(guests) ;
@@ -94,12 +95,20 @@ public class CustomException {
 //        } catch (ConflictGuestsException | DietaryRestrictionException   e) {
         	displayGuests(guests) ;
             System.out.println(e.getMessage());
-            System.out.println("You cannont have more than 8 people within a table!!") ;
-//        } catch (OutOfBoundsException e) {
+            Throwable cause = e.getCause();
+            if (cause != null) {
+                System.out.println("Cause: " + cause);
+            }
+//            e.printStackTrace();
+        } 
+//        catch (RuntimeException e) {
+//        	displayGuests(guests) ;
+//        	Throwable cause = e.getCause();
 //        	System.out.println("A runtime exception occurred: " + e.getMessage());
-        } catch (RuntimeException e) {
-        	displayGuests(guests) ;
-        System.out.println("A runtime exception occurred: " + e.getMessage());
-    }
-    }
+//        	if (cause != null) {
+//        		System.out.println("Cause: " + cause);
+//        	}
+//    }
+
+}
 }
