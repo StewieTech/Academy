@@ -24,3 +24,7 @@
 - If you are creating an instance of a Class, first check if it originally comes from an interface, just use interface instead. This way, to make changes down the line, you don't depend on the concrete class (classes don't change methods because of open/closed ) You can make changes easier because it's loosely coupled
 The Dependency Inversion Principle tells us to rely on abstractions, rather than concrete examples. Where possible, we should leverage the power of interfaces to ensure that changes we make in one part of our code don't cause cascading troubles for the rest of our program.
 
+## Github Links
+Github link: https://github.com/StewieTech/Academy
+Documentation: https://github.com/StewieTech/Academy/tree/master/documentation
+Code link: https://github.com/StewieTech/Academy/tree/master/1Week/Eclipse/bptn-java/src/main/java/com/bptn/course
