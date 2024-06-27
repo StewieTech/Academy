@@ -64,11 +64,41 @@ HashSet
 ```java
 Set<String> set2 = Set.of("John", "John", "John", "John", "John", "mark");
 
+static void check(Set<String> set1, Set<String> set2) {
+	for (String str: set1) {
+		if (set2.contains(str))
+	}
+}
+// notice how if we don't use the parameratized type Set<String> then we will get an error for String str
+
 ```
 LinkedHashSet
 - keeps insertion order
+-Internally uses HashSet and LinkedList
 
 TreeSet
 - Sorts the elements
 
 What's cool about any interface / class that extends the collection interface is you get access to all the base abstract methods that you are familiar with 
+- We don't have get we have contains() method in sets. This checks if the element is contained in the set. this makes sense as there's no order in the set.
+
+## HashAlgorithm
+- even potent function that returns the same function returns the same value for the same paratmeters
+
+## Map
+![alt text](image-9.png)
+initialCapacity - the initial capacity. This allows us to specify how big we want the LinkedHashMap to be when it is first created, essentially reserving space in memory for the items we want to put in it.
+
+loadFactor - the load factor. When the initial capacity is getting close to being full, Java will automatically expand the capacity of the map. The load factor determines what percentage of our capacity will be expanded to reserve space for more elements to be inserted.
+
+accessOrder - the ordering mode. This is a boolean value that we set to true for access order or false for insertion order
+
+keySet() method is used to access the keys in the LinkedHashMap
+
+values() method is used to access the values in the LinkedHashMap 
+
+entrySet() method is used to access the key-value pairs in the LinkedHashMap.
+
+## Multithreading
+![alt text](image-10.png)
+ if you extend the Thread class, you have to override the run method in order to make it work, whereas, if you implement the Runnable interface, you have to implement the run method. The Runnable interface will also require that you instantiate a variable as in Thread myThread = new Thread(nameOfClassThatExtendsRunnable); and then call the start() method on that myThread instance you just made.I 

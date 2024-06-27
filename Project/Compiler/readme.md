@@ -1,4 +1,4 @@
-# Compiler
+# Lexical Analyzer for Java Compiler
 
 
 - This will be my first look into if a Compiler is a decent project first project
@@ -11,11 +11,11 @@ However for fun lets look at the total phases
 4) Optimization (Optional)
 5) Code Generation [AST -> Java Bytecode]
 
-### GamePlan
+## GamePlan
 - I want to build the Lexical Analyzer part and find custom librariers for the other 3-4 parts
 - I might not get to using the Custom libraries but if I do  They are listed below:
 
-- The libraries to use
+### The Libraries to use
 2) Syntactic Analysis (Parsing) -> Token -> AST 
 - **ANTLR**
 <https://www.antlr.org/>
@@ -81,7 +81,16 @@ int max(int i);
 - Limited Context, only accesses tokens individually doesn't consider total code
 - Overhead, Debugging Challenges
 
-### Prerequisites and Resources
+## Possible Additional Features
+**MVP**
+- UI: Allows run and compile of the compiler
+- Error detection: By having robust error handling, 
+
+**Possible Product**
+- Token Caching: for tokens that are frequently seen, I could create caching (maybe using a HashMap?) that would return this more efficiently. Although I do believe I would need some sort of databse to do this ()
+- UI: Allows step by step execution of the each part of the compiler
+
+### Resources that could be helpful
 - **Visitor Pattern** : A design pattern that allows adding further operations to objects without modifying them. It uses the double-dispatch mechanism to execute operations on different types of objects.
 - **Java ASM**: A powerful library for manipulating Java bytecode. It allows developers to read, modify, and write bytecode programmatically, enabling dynamic class transformations and instrumentation.
 
@@ -91,3 +100,12 @@ int max(int i);
 Project to base it off of
 <https://medium.com/javarevisited/build-a-tiny-compiler-in-java-662f67a1ce85#:~:text=Build%20a%20Tiny%20Compiler%20in%20Java%201%201.,ASM%29%20...%206%206.%20Chaining%20and%20compiling.%20>
 ```
+
+### Feedback
+- put the most important rules in the document
+    **The most import part are in the rules**
+
+    
+- would be reading from a file
+- I can do a console projet
+- specifiy the output, is it in the console or another file 
