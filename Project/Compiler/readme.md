@@ -2,7 +2,7 @@
 
 
 - This will be my first look into if a Compiler is a decent project first project
-- I will only build the Lexical Analysis piece of it for my project
+- I will only build the Lexical Analysis piece of it for my project and everything else would be libraries. 
 
 However for fun lets look at the total phases
 1) Lexical Analysis String -> Token
@@ -81,9 +81,14 @@ int max(int i);
 - Limited Context, only accesses tokens individually doesn't consider total code
 - Overhead, Debugging Challenges
 
-## Possible Additional Features
+## Features
 **MVP**
+- Lexical Analyzer will use enum types to identify each character within a user's code file. There will be a UI option that then allows the user to see which of their characters are which token type
+- UI: A user will select there file with a simple GUI, once file has been loaded in They will have a list of options
 - UI: Allows run and compile of the compiler
+- UI: Gives the user a list of all the possible tokenTypes and examples of them. for example each item in the list below will be able to print out there own list. I will probably use a HashMap as well as an arraylist so that a user can select the identifier and a list of examples will come out. I may just use a giant string as well if that looks better:
+-   IDENTIFIER, KEYWORD, NUMBER, STRING, OPERATOR, SEPERATOR, COMMENT, WHITESPACE, ERROR;
+
 - Error detection: By having robust error handling, 
 
 **Possible Product**

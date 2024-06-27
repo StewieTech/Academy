@@ -102,3 +102,6 @@ entrySet() method is used to access the key-value pairs in the LinkedHashMap.
 ## Multithreading
 ![alt text](image-10.png)
  if you extend the Thread class, you have to override the run method in order to make it work, whereas, if you implement the Runnable interface, you have to implement the run method. The Runnable interface will also require that you instantiate a variable as in Thread myThread = new Thread(nameOfClassThatExtendsRunnable); and then call the start() method on that myThread instance you just made.I 
+ - the start() method calls run() method. First it performs system-level preprations and then invokes run. The start method method creates a new thread of execution. It interacts with the operating system to create a new thread. Once the thread is created it calls run. 
+ - the run method runs on a new thread, not on the main thread. Any method with run will execute concurrently with the main program
+
