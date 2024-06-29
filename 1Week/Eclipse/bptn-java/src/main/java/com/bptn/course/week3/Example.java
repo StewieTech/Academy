@@ -122,13 +122,13 @@ public class Example {
 	        System.out.println("Last key in the TreeMap: " + map.lastKey());
 	    }
 	}
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
 //	        HashMapExample hashMapExample = new HashMapExample();
 //	        hashMapExample.demonstrateHashMap();
 
 //	        LinkedHashMapExample linkedHashMapExample = new LinkedHashMapExample();
 //	        linkedHashMapExample.demonstrateLinkedHashMap();
 }
-	        TreeMapExample treeMapExample = new TreeMapExample();
-	        treeMapExample.demonstrateTreeMap();
-}
+//	        TreeMapExample treeMapExample = new TreeMapExample();
+//	        treeMapExample.demonstrateTreeMap();
+//}

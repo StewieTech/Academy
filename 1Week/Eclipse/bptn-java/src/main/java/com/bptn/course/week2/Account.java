@@ -17,7 +17,7 @@ public class Account {
 
     public boolean equals(Account firstAccount) {
         Account secondAccount = (Account) firstAccount ;
-        return (this.name.equals(secondAccount.name) && (this.balance == secondAccount.balance);
+        return (this.name.equals(secondAccount.name) && (this.balance == secondAccount.balance) ) ;
 //        return (this.balance == secondAccount.balance) ;
     // firstAccount.name(equals(secondAccount.name));
     // firstAccount.name(equals(secondAccount));

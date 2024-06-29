@@ -1,10 +1,11 @@
 # Lexical Analyzer for Java Compiler
 
 
-- This will be my first look into if a Compiler is a decent project first project
-- I will only build the Lexical Analysis piece of it for my project and everything else would be libraries. 
+- This is my project scope document that includes Features and Libraries that I'm using. It also includes a general gameplan for how I am going to build the Lexical Analyer
+- I will focus on coding the Lexical Analysis for my project and everything else would be importing libraries. 
 
-However for fun lets look at the total phases
+
+However for lets look at the total phases
 1) Lexical Analysis String -> Token
 2) Syntactic Analysis (Parsing) -> Token -> AST
 3) Semantic Analysis [Validating AST]
@@ -29,7 +30,7 @@ However for fun lets look at the total phases
 - ** JavaPoet ** (May Change Later)
 <https://github.com/square/javapoet>
 
-## Lexical Analysis
+## Lexical Analysis Notes
 - first phase of compiler known as  a Scanner, it converts High level imput program into a sequence of tokens
 - <https://www.geeksforgeeks.org/introduction-of-lexical-analysis/>
 - Lexical analysis can be implemented with a Deterministic finite Automata (which is a set of defined rules to solve a problem) and the output is a sequence of tokens that is sent to the parser for syntax analysis
@@ -81,19 +82,22 @@ int max(int i);
 - Limited Context, only accesses tokens individually doesn't consider total code
 - Overhead, Debugging Challenges
 
-## Features
+## Features And Rulest a
 **MVP**
 - Lexical Analyzer will use enum types to identify each character within a user's code file. There will be a UI option that then allows the user to see which of their characters are which token type
 - UI: A user will select there file with a simple GUI, once file has been loaded in They will have a list of options
 - UI: Allows run and compile of the compiler
 - UI: Gives the user a list of all the possible tokenTypes and examples of them. for example each item in the list below will be able to print out there own list. I will probably use a HashMap as well as an arraylist so that a user can select the identifier and a list of examples will come out. I may just use a giant string as well if that looks better:
 -   IDENTIFIER, KEYWORD, NUMBER, STRING, OPERATOR, SEPERATOR, COMMENT, WHITESPACE, ERROR;
-
+- UI: while waiting for user input a thread will be used to execute the Lexical Analyzer
 - Error detection: By having robust error handling, 
+- GUI: javafx For file input. The rest of code will be outputted in the console https://openjfx.io/javadoc/22/
 
 **Possible Product**
 - Token Caching: for tokens that are frequently seen, I could create caching (maybe using a HashMap?) that would return this more efficiently. Although I do believe I would need some sort of databse to do this ()
 - UI: Allows step by step execution of the each part of the compiler
+- UI: while waiting for user input a thread will be used to execute the Lexical Analyzer. This will execute the rest of the compiler as well
+- GUI: javafx for all input and outputs
 
 ### Resources that could be helpful
 - **Visitor Pattern** : A design pattern that allows adding further operations to objects without modifying them. It uses the double-dispatch mechanism to execute operations on different types of objects.
