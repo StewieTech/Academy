@@ -1,4 +1,6 @@
-// package com.bptn.course._03_flow_control;
+ package com.bptn.course._03_flow_control;
+
+import java.util.Arrays ;
 
 public class Array {
   public static void main(String[] args) {
@@ -6,8 +8,7 @@ public class Array {
  {
     int i0 = 4; 
     int i1 = 4; 
-    int i9= 4; 
-    int i2 = 4; 
+    int i9= 4; int i2 = 4;
     int i3 = 4; 
     int i4 = 4; 
     int i5 = 4; 
@@ -15,7 +16,7 @@ public class Array {
     int i7 = 4; 
     int i8 = 4; 
 
-    int[] Array = { 4, 5, 7, 2, 19, 14, 35, 46, 71, 28};
+    int[] nums = { 4, 5, 7, 2, 19, 14, 35, 46, 71, 28};
 
     int [] secondArray = new int[10];
 

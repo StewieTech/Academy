@@ -1,4 +1,4 @@
-package com.bptn.course.codingFolder;
+//package com.bptn.course.codingFolder;
 
 import java.util.Scanner;
 
@@ -31,8 +31,8 @@ public class NumberGuessingGame {
 
 
 
-if (charAt(i) > 65 && charAt(i) < 100 && amt > 1) {
-    System.out.println(amt + " " word + "s");
-} else {
-    
-}
+//if (charAt(i) > 65 && charAt(i) < 100 && amt > 1) {
+//    System.out.println(amt + " " word + "s");
+//} else {
+//
+//}

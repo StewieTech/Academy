@@ -41,12 +41,12 @@ package com.bptn.course.week2.InstructorLed;
 	
 	public class InterfaceExample {
 
-		public static void main(String[] args) {
-			Employee emp = new Employee();
-			System.out.println(emp.calculatePay(100_000, 30_000));
-			Hello emp2 - new Employee();
-			((Employee) emp2).doSomething();
-
-	}
+//		public static void main(String[] args) {
+//			Employee emp = new Employee();
+//			System.out.println(emp.calculatePay(100_000, 30_000));
+//			Hello emp2 - new Employee();
+//			((Employee) emp2).doSomething();
+//
+//	}
 
 }

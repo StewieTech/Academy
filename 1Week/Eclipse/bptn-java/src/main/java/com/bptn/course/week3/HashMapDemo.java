@@ -1,5 +1,4 @@
 package com.bptn.course.week3;
-
 //Import the HashMap class
 import java.util.HashMap;
 import java.util.Map;
