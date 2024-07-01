@@ -9,6 +9,8 @@ public enum TokenType {
 
 }
 
+// a lexeme is a sequence of characters in the source code that matches a token
+// pattern
 class Tokens {
   private TokenType type;
   private String lexeme;
