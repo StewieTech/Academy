@@ -139,5 +139,6 @@ class Tokens {
  * 123abc // variables can't start with numbers
  ** // need to look for Java specific invalid tokens
  * 
- * 
+ * Helpful Documentation
+ * <https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F/java/lang/Character.html>
  */

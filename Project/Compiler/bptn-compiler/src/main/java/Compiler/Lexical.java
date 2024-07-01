@@ -24,7 +24,7 @@ public class Lexical {
     this.tokensMap = new HashMap<>();
     this.tokenCounter = new HashMap<>();
     for (TokenType type : TokenType.values()) {
-      tokensMap.put(type, new ArrayList<>());
+      tokensMap.put(type, new ArrayList<Tokens>());
       tokenCounter.put(type, 0);
     }
   }
@@ -59,34 +59,74 @@ public class Lexical {
     return addTokens(TokenType.NUMBER, numberString.toString());
   }
 
-  // I am going to be returning a tokentype based on what the character is
-  public List<TokenType> tokenize() {
-    List<TokenType> tokenList = new ArrayList<>();
-    while (keywordsIndex < userInput.length()) {
-      char currentCharacter = userInput.charAt(keywordsIndex);
-
-    if (Character.isLetter(currentCharacter)) {
-      tokenList.add(consumeIdentiferOrKeyword());
-    } else if (Character.isDigit(currentCharacter)) {
-      tokenList.add()
+  private Tokens consumeString() {
+    StringBuilder wordString = new StringBuilder();
+    consume();
+    while (positionIndex < userInput.length() && peek() != '"') {
+      wordString.append(consume());
     }
-			
-		}
-		
-	}
+    consume();
+    return addTokens(TokenType.STRING, wordString.toString());
+
+  }
+
+  private Tokens consumeSeperator() {
+    return addTokens(TokenType.SEPERATOR, String.valueOf(consume()));
+  }
+
+  private Tokens consumeOperator() {
+    return addTokens(TokenType.OPERATOR, String.valueOf(consume()));
+  }
+
+  private void consumeWhitespace() {
+    while (positionIndex < userInput.length() && Character.isWhitespace(peek())) {
+      consume();
+    }
+  }
+
+  // I am going to be returning a tokentype based on what the character is
+  public List<TokenType> codeToTokens() {
+    List<TokenType> tokenList = new ArrayList<>();
+    while (positionIndex < userInput.length()) {
+      char currentCharacter = userInput.charAt(positionIndex);
+
+      switch (currentCharater) {
+        case isWhitespace(currentCharacter):
+          tokenList.add(consumeWhitespace());
+          break;
+        case isSeparator(currentCharacter):
+          tokenList.add(consumeSeperator());
+          break;
+        case isOperator(currentCharacter):
+          tokenList.add(consumeOperator());
+          break;
+        default:
+          tokens.add(new Tokens(TokenType.ERROR, String.valueOf(consume())));
+      }
+      break;
+    }
+
+  }
 
   // functions
   public Tokens consumeIdentiferOrKeyword() {
     StringBuilder wordString = new StringBuilder();
-    while (keywordsIndex < userInput.length() && Character.isLetterOrDigit(userInput.charAt(keywordsIndex))) {
-      wordString.append(userInput.charAt(keywordsIndex));
+    while (positionIndex < userInput.length() && Character.isLetterOrDigit(userInput.charAt(keywordsIndex))) {
+      wordString.append(userInput.charAt(positionIndex));
     }
     String element = wordString.toString();
-    if (keywords.contains(element)) {
-      return new Tokens(TokenType.KEYWORD, element);
-    } else {
-      return new Tokens(TokenType.IDENTIFIER, element);
-    }
+    TokenType type = isKeyword(element) ? TokenType.KEYWORD : TokenType.IDENTIFIER;
+    return addToken(type, element);
+  }
+
+  }
+
+  // helper functions, may move to new file not sure yet
+  private Tokens addTokens(TokenType type, String Element) {
+    Tokens token = new Tokens(type, element);
+    tokensMap.get(type).add(token);
+    tokenCounter.put(type, tokenCounter.get(type) + 1);
+    return token;
   }
 
 }
