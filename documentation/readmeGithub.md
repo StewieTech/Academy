@@ -43,6 +43,16 @@ git log -p  -> shows all the changes that happened
 git log --graph -> shows branch
 git log --grep='example'
 ```
+### Git Branch
+```
+git branch - a
+git branch - avv
+git branch -m old-name new-name
+git merge 
+git fetch origin 
+git fetch all -> both commands update to the latest changes
+
+```
 ---
 ### Documentation Links
 ````

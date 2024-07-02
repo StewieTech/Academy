@@ -1,13 +1,14 @@
 package Compiler;
 
+
 import java.util.List;
 import java.util.Map;
 
 public class UI {
   public static void main(String[] args) {
     // Example input string
-//    String codeSource = "int x = 42; if (x > 0) { x = x + 1; }";
-    String codeSource = "44445";
+    String codeSource = "int x = 42; if (x > 0) { x = x + 1; }";
+//    String codeSource = "4444 { (43 + e 55";
 
     // Create an instance of LexicalAnalyzer with the input string
     Lexical lexerInstance = new Lexical(codeSource);

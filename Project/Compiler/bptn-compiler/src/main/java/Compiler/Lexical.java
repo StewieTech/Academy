@@ -11,7 +11,6 @@ import java.util.HashSet;
  * Updating this function to use HashMaps instead of ArrayLists
  *
  * */
-
 public class Lexical {
   // I want to ingest the user's input and spit it out into tokens
   private String userInput; // should this be constant ?
@@ -44,10 +43,10 @@ public class Lexical {
     return "+-*/|&!=%<>".indexOf(character) != -1;
   }
 
-//  private boolean isKeyword(String element) {
-//    return Set.of("if", "else", "return", "for", "while").contains(element);
-//  }
-//
+  private boolean isKeyword(String element) {
+    return Set.of("if", "else", "return", "for", "while").contains(element);
+  }
+
   private char consume() {
     return userInput.charAt(positionIndex++);
   }
@@ -79,21 +78,27 @@ public class Lexical {
     return addTokens(TokenType.OPERATOR, String.valueOf(consume()));
   }
 
-  private void consumeWhitespace() {
+  private Tokens consumeWhitespace() {
     while (positionIndex < userInput.length() && Character.isWhitespace(peek())) {
       consume();
     }
+    return addTokens(TokenType.WHITESPACE, "A Space");
   }
 
-//  public Tokens consumeIdentiferOrKeyword() {
-//    StringBuilder wordString = new StringBuilder();
-//    while (positionIndex < userInput.length() && Character.isLetterOrDigit(userInput.charAt(positionIndex))) {
-//      wordString.append(userInput.charAt(positionIndex));
-//    }
-//    String element = wordString.toString();
-//    TokenType type = isKeyword(element) ? TokenType.KEYWORD : TokenType.IDENTIFIER;
-//    return addTokens(type, element);
-//  }
+  private Tokens consumeError() {
+    return addTokens(TokenType.ERROR, String.valueOf(consume()));
+  }
+
+  public Tokens consumeIdentifierOrKeyword() {
+    StringBuilder wordString = new StringBuilder();
+    while (positionIndex < userInput.length() && Character.isLetterOrDigit(userInput.charAt(positionIndex))) {
+      wordString.append(userInput.charAt(positionIndex));
+      positionIndex++ ;
+    }
+    String element = wordString.toString();
+    TokenType type = isKeyword(element) ? TokenType.KEYWORD : TokenType.IDENTIFIER;
+    return addTokens(type, element);
+  }
 
   // I am going to be returning a tokentype based on what the character is
   public List<Tokens> codeToTokens() {
@@ -103,13 +108,22 @@ public class Lexical {
 
       if (Character.isDigit(currentCharacter)) {
         tokenList.add(consumeNumber());
-      } else {
-    	  System.out.println("Not a number");
-          tokenList.add(consumeNumber());
+      } else if (Character.isWhitespace(currentCharacter)) {
+        consumeWhitespace();
+      } else if (isSeparator(currentCharacter)) {
+        tokenList.add(consumeSeperator());
+      }   else  if (isOperator(currentCharacter)) {
+           tokenList.add(consumeOperator());
 
-    	  
-//        tokenList.add(new Tokens(TokenType.ERROR, String.valueOf(consume())));
+      } else if (Character.isLetter(currentCharacter)) {
+        tokenList.add(consumeIdentifierOrKeyword());
+      } else {
+          tokenList.add(consumeError());
       }
+
+
+
+//        tokenList.add(new Tokens(TokenType.ERROR, String.valueOf(consume())));
     }
     return tokenList;
 
