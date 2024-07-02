@@ -84,31 +84,6 @@ public class Lexical {
     }
   }
 
-  // I am going to be returning a tokentype based on what the character is
-  public List<TokenType> codeToTokens() {
-    List<TokenType> tokenList = new ArrayList<>();
-    while (positionIndex < userInput.length()) {
-      char currentCharacter = userInput.charAt(positionIndex);
-
-      switch (currentCharater) {
-        case isWhitespace(currentCharacter):
-          tokenList.add(consumeWhitespace());
-          break;
-        case isSeparator(currentCharacter):
-          tokenList.add(consumeSeperator());
-          break;
-        case isOperator(currentCharacter):
-          tokenList.add(consumeOperator());
-          break;
-        default:
-          tokens.add(new Tokens(TokenType.ERROR, String.valueOf(consume())));
-      }
-      break;
-    }
-
-  }
-
-  // functions
   public Tokens consumeIdentiferOrKeyword() {
     StringBuilder wordString = new StringBuilder();
     while (positionIndex < userInput.length() && Character.isLetterOrDigit(userInput.charAt(positionIndex))) {
@@ -119,12 +94,38 @@ public class Lexical {
     return addTokens(type, element);
   }
 
+  // I am going to be returning a tokentype based on what the character is
+  public List<Tokens> codeToTokens() {
+    List<Tokens> tokenList = new ArrayList<>();
+    while (positionIndex < userInput.length()) {
+      char currentCharacter = userInput.charAt(positionIndex);
+
+      if (Character.isDigit(currentCharacter)) {
+        tokenList.add(consumeNumber());
+      } else {
+        tokenList.add(new Tokens(TokenType.ERROR, String.valueOf(consume())));
+      }
+    }
+    return tokenList;
+
+  }
+
+  // functions
+
   // helper functions, may move to new file not sure yet
   private Tokens addTokens(TokenType type, String element) {
     Tokens token = new Tokens(type, element);
     tokensMap.get(type).add(token);
     tokenCounter.put(type, tokenCounter.get(type) + 1);
     return token;
+  }
+
+  public Map<TokenType, List<Tokens>> getTokenMap() {
+    return tokensMap;
+  }
+
+  public Map<TokenType, Integer> getTokenCount() {
+    return tokenCounter;
   }
 
 }
