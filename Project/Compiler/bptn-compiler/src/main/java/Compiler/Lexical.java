@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.HashSet;
 
 /* 
  * Updating this function to use HashMaps instead of ArrayLists
@@ -43,10 +44,10 @@ public class Lexical {
     return "+-*/|&!=%<>".indexOf(character) != -1;
   }
 
-  private boolean isKeyword(String element) {
-    return Set.of("if", "else", "return", "for", "while").contains(element);
-  }
-
+//  private boolean isKeyword(String element) {
+//    return Set.of("if", "else", "return", "for", "while").contains(element);
+//  }
+//
   private char consume() {
     return userInput.charAt(positionIndex++);
   }
@@ -84,15 +85,15 @@ public class Lexical {
     }
   }
 
-  public Tokens consumeIdentiferOrKeyword() {
-    StringBuilder wordString = new StringBuilder();
-    while (positionIndex < userInput.length() && Character.isLetterOrDigit(userInput.charAt(positionIndex))) {
-      wordString.append(userInput.charAt(positionIndex));
-    }
-    String element = wordString.toString();
-    TokenType type = isKeyword(element) ? TokenType.KEYWORD : TokenType.IDENTIFIER;
-    return addTokens(type, element);
-  }
+//  public Tokens consumeIdentiferOrKeyword() {
+//    StringBuilder wordString = new StringBuilder();
+//    while (positionIndex < userInput.length() && Character.isLetterOrDigit(userInput.charAt(positionIndex))) {
+//      wordString.append(userInput.charAt(positionIndex));
+//    }
+//    String element = wordString.toString();
+//    TokenType type = isKeyword(element) ? TokenType.KEYWORD : TokenType.IDENTIFIER;
+//    return addTokens(type, element);
+//  }
 
   // I am going to be returning a tokentype based on what the character is
   public List<Tokens> codeToTokens() {
@@ -103,7 +104,11 @@ public class Lexical {
       if (Character.isDigit(currentCharacter)) {
         tokenList.add(consumeNumber());
       } else {
-        tokenList.add(new Tokens(TokenType.ERROR, String.valueOf(consume())));
+    	  System.out.println("Not a number");
+          tokenList.add(consumeNumber());
+
+    	  
+//        tokenList.add(new Tokens(TokenType.ERROR, String.valueOf(consume())));
       }
     }
     return tokenList;
