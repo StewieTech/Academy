@@ -111,18 +111,16 @@ public class Lexical {
   // functions
   public Tokens consumeIdentiferOrKeyword() {
     StringBuilder wordString = new StringBuilder();
-    while (positionIndex < userInput.length() && Character.isLetterOrDigit(userInput.charAt(keywordsIndex))) {
+    while (positionIndex < userInput.length() && Character.isLetterOrDigit(userInput.charAt(positionIndex))) {
       wordString.append(userInput.charAt(positionIndex));
     }
     String element = wordString.toString();
     TokenType type = isKeyword(element) ? TokenType.KEYWORD : TokenType.IDENTIFIER;
-    return addToken(type, element);
-  }
-
+    return addTokens(type, element);
   }
 
   // helper functions, may move to new file not sure yet
-  private Tokens addTokens(TokenType type, String Element) {
+  private Tokens addTokens(TokenType type, String element) {
     Tokens token = new Tokens(type, element);
     tokensMap.get(type).add(token);
     tokenCounter.put(type, tokenCounter.get(type) + 1);
