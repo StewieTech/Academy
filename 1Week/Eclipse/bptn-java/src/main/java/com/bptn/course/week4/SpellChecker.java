@@ -1,4 +1,4 @@
-package com.bptn.course.week4.junit;
+package com.bptn.course.week4;
 
 import java.util.*;
 import java.io.*;

@@ -117,4 +117,12 @@ Project to base it off of
     
 - would be reading from a file
 - I can do a console projet
-- specifiy the output, is it in the console or another file 
+- specifiy the output, is it in the console or another file
+
+### Bugs
+- received a nasty bug where consumeIDentifier wasn't working. Fixed by commenting it out and recommenting. Also fiing string overload method
+
+### TODO
+- need to add code for String 
+- Add Comment code
+- fix List Token Print

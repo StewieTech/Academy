@@ -1,4 +1,4 @@
-package com.bptn.course.week4.junit.instructorLed;
+package com.bptn.course.week4.instructorLed;
 
 public class Calculator {
    public int findMax(int[] arr) {

@@ -13,7 +13,7 @@ import java.util.HashSet;
  * */
 public class Lexical {
   // I want to ingest the user's input and spit it out into tokens
-  private String userInput; // should this be constant ?
+  private final String userInput; // should this be constant ?
   private int positionIndex;
   private Map<TokenType, List<Tokens>> tokensMap;
   private Map<TokenType, Integer> tokenCounter;
@@ -97,6 +97,7 @@ public class Lexical {
     }
     String element = wordString.toString();
     TokenType type = isKeyword(element) ? TokenType.KEYWORD : TokenType.IDENTIFIER;
+    System.out.println("Adding token: " + type + " -> " + element);
     return addTokens(type, element);
   }
 
@@ -115,15 +116,13 @@ public class Lexical {
       }   else  if (isOperator(currentCharacter)) {
            tokenList.add(consumeOperator());
 
-      } else if (Character.isLetter(currentCharacter)) {
+      }
+      else if (Character.isLetter(currentCharacter)) {
         tokenList.add(consumeIdentifierOrKeyword());
-      } else {
+      }
+      else {
           tokenList.add(consumeError());
       }
-
-
-
-//        tokenList.add(new Tokens(TokenType.ERROR, String.valueOf(consume())));
     }
     return tokenList;
 

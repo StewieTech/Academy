@@ -7,38 +7,13 @@ public enum TokenType {
   // <https://stackoverflow.com/questions/17848207/making-a-lexical-analyzer>
   NUMBER, STRING, IDENTIFIER, KEYWORD, OPERATOR, SEPERATOR, WHITESPACE, COMMENT, ERROR;
 
+  //
+
 }
-
-// a lexeme is a sequence of characters in the source code that matches a token
-// pattern
-class Tokens {
-  private TokenType type;
-  private String lexeme;
-
-  Tokens(TokenType type, String lexeme) {
-    this.type = type;
-    this.lexeme = lexeme;
-
-  }
-
-  public TokenType getType() {
-    return type;
-  }
-
-  public String getLexeme() {
-    return lexeme;
-  }
-
-  @Override
-  public String toString() {
-    return String.format("%s: %s ", type, lexeme);
-  }
-}
-
 // A feature could be a UI example of all the different enum types for the
 // lexical analyzer. The user would be able
 /*
- * 
+ *
  * NUMBER
  * integers, floats, doubles
  * 123
