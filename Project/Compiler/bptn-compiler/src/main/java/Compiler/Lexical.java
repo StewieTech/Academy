@@ -44,7 +44,7 @@ public class Lexical {
   }
 
   private boolean isKeyword(String element) {
-    return Set.of("if", "else", "return", "for", "while").contains(element);
+    return Set.of("if", "else", "return", "for", "while", "synchronized").contains(element);
   }
 
   private char consume() {

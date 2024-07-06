@@ -72,6 +72,7 @@ public class Printer {
         System.out.println("1. Print Tokens in a List");
         System.out.println("2. Print Tokens in a Map");
         System.out.println("3. Print Tokens with their Counts");
+        System.out.println("9. Go back to Main Menu");
         System.out.println("0. Exit");
         System.out.print("Enter a number for your choice: ");
     }
