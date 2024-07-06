@@ -165,3 +165,40 @@ public class QuickSortFunctional {
 
 ```
 ![alt text](image-17.png)
+
+## Streams
+- Terminal streams are at the end
+- Intermediate streams
+- JVM allocates methods on the heap in a sepecial area called method area.
+-  stream objects are stored in the heap like other objects but their backing structure matches the collection typically they are invoked on
+
+```java 
+// If we had a collection called people, we could create a stream of their names using a map like so:
+List<String> list = people.stream()
+   .map(Person::getName)
+   // And then return the result as a set by calling .collect(Collectors.toSet())
+   .collect(Collectors.toSet());
+   
+   import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class ToMapExample {
+    public static void main(String[] args) {
+        List<String> fruits = Arrays.asList("Apple", "Banana", "Orange");
+
+        // Creating a Map of fruit name as key and length as value
+        Map<String, Integer> fruitLengthMap = fruits.stream()
+                .collect(Collectors.toMap(
+                        fruit -> fruit,
+                        String::length
+                ));
+
+        System.out.println("Fruit length map: " + fruitLengthMap);
+    }
+}
+
+
+
+   ```
