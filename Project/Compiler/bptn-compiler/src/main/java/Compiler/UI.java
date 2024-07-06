@@ -6,6 +6,7 @@ import javafx.application.Application ;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import javafx.stage.FileChooser;
@@ -31,6 +32,7 @@ public class UI extends Application {
     private static boolean isFileLoaded = false;
 //    private static final CountDownLatch latch = new CountDownLatch(2);
   private static final Object fileLoadMutex = new Object();
+  private static StringBuilder userLog = new StringBuilder();
 
   public static void main(String[] args) {
     // Example input string
@@ -38,27 +40,30 @@ public class UI extends Application {
 
 
     int userChoice;
-
+    int saveUserChoice ;
 
     do {
       Printer.displayInitialMenu();
       userChoice = scanner.nextInt();
+      userLog.append("Initial Menu selected: ").append(userChoice).append("\n");
 //       scanner.next
 
       switch (userChoice) {
-        case 2:
+        case 1:
           codeSource = "int x = 43; if (x > 0) { x = x + 1; } ' This is a string ' ";
 //          codeSource = "333445 2333 2323 3232";
           System.out.println(codeSource);
+        userLog.append("Inputted Code: ").append(codeSource).append("\n");
           break;
 
-        case 3:
+        case 2:
           System.out.println("Enter your code:");
           scanner.nextLine() ;
           codeSource = scanner.nextLine();
+          userLog.append("Inputted Code: ").append(codeSource).append("\n");
           break;
 
-        case 4:
+        case 3:
           // By launching JavaFX on a different thread we can ensure safe thread behaviour and avoid exceptions form unpredictability
           launch(args) ;
 
@@ -73,9 +78,10 @@ public class UI extends Application {
             }
 
           }
+          userLog.append("Inputted Code: ").append(codeSource).append("\n");
           break ;
 
-        case 1:
+        case 0:
           System.out.println("Thanks for using the Lexical Analyzer!");
           return;
 
@@ -83,7 +89,7 @@ public class UI extends Application {
           System.out.println("Wrong Input!! Please use the correct Input");
           continue;
       }
-    } while (userChoice < 2 || userChoice > 3);
+    } while (userChoice < 1 || userChoice > 3);
 
       // Create an instance of LexicalAnalyzer with the input string and then tokenizing the codeSource
       Lexical lexerInstance = new Lexical(codeSource);
@@ -94,35 +100,83 @@ public class UI extends Application {
       do {
       Printer.displayPrintMenu();
       userChoice = scanner.nextInt();
+      userLog.append("Print Menu Option Selected: ").append(userChoice).append("\n");
 //    scanner.nextLine();
 
       switch (userChoice) {
+        case 1:
+          System.out.println(printer.printTokensList());
+          userLog.append("Printed Tokens List. \n");
+          userLog.append(printer.printTokensList()).append("\n");
+          break;
+
         case 2:
-          printer.printTokensList();
+          System.out.println(printer.printTokensMap());
+          userLog.append("Printed Tokens Map \n");
+          userLog.append(printer.printTokensMap()).append("\n");
           break;
 
         case 3:
-          printer.printTokensMap();
+          System.out.println(printer.printTokenCounts());
+          userLog.append("Printed Token Counts \n");
+          userLog.append(printer.printTokenCounts()).append("\n");
           break;
 
-        case 4:
-          printer.printTokenCounts();
-          break;
-
-        case 10:
+        case 9:
           main(new String[1] );
           break;
 
-        case 1:
+        case 0:
           System.out.println("Thank You for using the Lexical Analyzer !! :D ");
           return ;
 
         default:
           System.out.println("Terrible Choice!! Please choose one of the available numbers");
       }
-    } while ( userChoice != 1 ) ;
+    } while (userChoice < 1 || userChoice > 3); ;
+
+    do {
+    Printer.displaySavingMenu();
+    saveUserChoice = scanner.nextInt() ;
+
+    switch (saveUserChoice) {
+      case 1:
+        SaveUserFile.setContentToSave(userLog.toString());
+        SaveUserFile.main(new String[0]);
+//        saveFile(userLog.toString()) ;
+        System.out.println("Entire File Saved !!");
+        break;
+      case 2:
+        StringBuilder outputString = new StringBuilder();
+        if (userChoice == 1) {
+          outputString.append(printer.printTokensList());
+//          saveFile(outputString.toString());
+      } else if (userChoice == 2) {
+          outputString.append(printer.printTokensMap());
+//          saveFile(outputString.toString());
+        } else {
+          outputString.append(printer.printTokenCounts());
+//          saveFile(outputString.toString());
+        }
+        SaveUserFile.setContentToSave(outputString.toString());
+        SaveUserFile.main(new String[0]);  // Start new JavaFX application
+        break;
+      case 9:
+        main(new String[1]) ;
+        break ;
+      case 0:
+        System.out.println("Thanks for using the fabulous Lexical Analyzer !! ");
+        return ;
+      default :
+        System.out.println("Horrible Choice! Do Better!! Pick a valid one !!");
+    }
+
+    } while (saveUserChoice != 0) ;
+
       scanner.close();
   }
+
+
   @Override
   public void start(Stage lexStage) throws Exception {
     lexStage.setTitle("Lexical Analyzer");
@@ -166,7 +220,37 @@ public class UI extends Application {
   }
 
 
+//  private static void saveFile(String userOutput) {
+//    FileChooser fileChooser = new FileChooser() ;
+//    fileChooser.setTitle("Save your lexical analysis to a file !! :D");
+//    Platform.runLater(() ->  launch(args) {
+//
+//    Stage saveLexStage = new Stage();
+//
+//    File userFile = fileChooser.showSaveDialog(saveLexStage);
+//    if (userFile != null) {
+//      try (FileWriter fileWriter = new FileWriter(userFile)) {
+//        fileWriter.write(userOutput);
+//        System.out.println("Your file was saved !! Congratulations !!");
+//      } catch (IOException e) {
+//        System.err.println("Your save failed :( " + e.getMessage());
+//      }
+//    }
+//    });
+//  }
 
+  // Getter methods
+  public static String getCodeSource() {
+    return codeSource;
+  }
+  public static void setCodeSource(String codeSource) {
+  }
 
+  public static boolean getIsFileLoaded() {
+    return isFileLoaded;
+  }
 
+  public static Object getFileLoadMutex() {
+    return fileLoadMutex ;
+  }
 }

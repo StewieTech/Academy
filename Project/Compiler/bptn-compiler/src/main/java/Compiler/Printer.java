@@ -22,29 +22,35 @@ public class Printer {
 //            System.out.println(token);
 
 //    }
-    public void printTokensList() {
-        System.out.println("\n Tokens Listed");
+    public String printTokensList() {
+        StringBuilder stringOutput = new StringBuilder();
+       stringOutput.append("\n Tokens Listed: \n");
         Map<TokenType, List<Tokens>> tokenMap = lexerInstance.getTokenMap();
 
         tokenMap.forEach((type, tokenList) -> {
-            tokenList.forEach(element -> System.out.println(element)) ;
+            tokenList.forEach(element -> stringOutput.append(element).append(", ")  ) ;
         });
+        return stringOutput.toString();
     }
 
 
 
-    public void printTokensMap() {
-        System.out.println("\n Token Map");
+    public String printTokensMap() {
+        StringBuilder stringOutput = new StringBuilder() ;
+        stringOutput.append("\n Token Map: \n");
         for (Map.Entry<TokenType, List<Tokens>> element : lexerInstance.getTokenMap().entrySet()) {
-            System.out.println(element.getKey() + ": " + element.getValue());
+            stringOutput.append(element.getKey()).append(": ").append(element.getValue()).append("\n");
         }
+        return stringOutput.toString() ;
     }
 
-    public void printTokenCounts() {
-        System.out.println("\n Token Counts:");
+    public String printTokenCounts() {
+        StringBuilder stringOutput = new StringBuilder() ;
+        stringOutput.append("\n Token Counts: \n");
         for (Map.Entry<TokenType, Integer> element : lexerInstance.getTokenCount().entrySet() ) {
-            System.out.println(element.getKey() + ": " + element.getValue()) ;
+            stringOutput.append(element.getKey()).append(": ").append(element.getValue()).append("\n") ;
         }
+        return stringOutput.toString() ;
     }
 
 
@@ -62,9 +68,14 @@ public class Printer {
         System.out.println(codeSource);
         System.out.println("If above code looks good, Click to Continue");
         scanner.nextLine();
+        }
 
-
-
+        public static void displaySavingMenu() {
+            System.out.println("\n Do you want to save your output? ");
+            System.out.println("1: Save ENTIRE Lexical Analyzer input To File");
+            System.out.println("2. Save SPECIFIC lexical analyzer selection to file");
+            System.out.println("9: Back to Main Menu");
+            System.out.println("0: Exit Menu");
     }
 
     public static void displayPrintMenu() {

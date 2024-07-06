@@ -1,26 +1,44 @@
-package Compiler;//package Compiler;
+//package Compiler;//package Compiler;
 //
+//import static org.junit.jupiter.api.Assertions.*;
+//import org.junit.jupiter.api.BeforeAll;
 //import org.junit.jupiter.api.Test;
-//import java.util.List;
-//import static org.junit.jupiter.api.Assertions.assertEquals;
+//import javafx.application.Platform;
+//import javafx.stage.Stage;
 //
-//public class LexicalTest {
+//import java.io.ByteArrayInputStream;
+//import java.io.File;
+//import java.io.FileWriter;
+//import java.io.IOException;
+//import java.util.List;
+//import java.util.concurrent.CountDownLatch;
+//import java.util.concurrent.TimeUnit;
+//
+//public class testUI {
+//
+//    @BeforeAll
+//    public static void initJFX() throws InterruptedException {
+//        CountDownLatch latch = new CountDownLatch(1);
+//        Platform.startup(() -> {
+//            latch.countDown();
+//        });
+//        if (!latch.await(5, TimeUnit.SECONDS)) {
+//            throw new IllegalStateException("JavaFX initialization timed out");
+//        }
+//    }
 //
 //    @Test
-//    public void testConsumerNumber() {
-//        System.out.println("Testing ConsumeNumber");
-//        Lexical lexeme = new Lexical("444555");
-//
-//        List<Tokens> tokenList = lexeme.codeToTokens();
-//        System.out.println("Created Lexical instance");
-//
-//        assertEquals(TokenType.NUMBER, tokenList.get(0).getType());
-//        System.out.println("The Type of token matches !!");
-//
-//        assertEquals("444555", tokenList.get(0).getLexeme());
-//       System.out.println("The right Lexeme was found!!");
-//
-//        assertEquals(1, tokenList.size());
-//        System.out.println("List size is correct!");
+//    public void testJavaFXInitialization() {
+//        System.out.println("Testing JavaFX startup... ");
+//        assertDoesNotThrow(() -> {
+//            Platform.runLater(() -> {
+//                try {
+//                    new UI().start(new Stage());
+//                    System.out.println("JavaFX started successfully !! :D" );
+//                } catch (Exception e) {
+//                    fail("Exception during JavaFX initialization: " + e.getMessage());
+//                }
+//            });
+//        });
 //    }
 //}
