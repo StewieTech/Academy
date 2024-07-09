@@ -4,7 +4,7 @@ package Compiler;
 // <https://openjfx.io/javadoc/18/javafx.graphics/javafx/application/Application.html#launch(java.lang.String...)>
 import javafx.application.Application ;
 import javafx.stage.Stage;
-import javafx.application.Platform;
+//import javafx.application.Platform;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,11 +33,16 @@ public class UI extends Application {
 //    private static final CountDownLatch latch = new CountDownLatch(2);
   private static final Object fileLoadMutex = new Object();
   private static StringBuilder userLog = new StringBuilder();
+  private static Stage lexStage;
 
   public static void main(String[] args) {
-    // Example input string
-//    String codeSource = "4445 { (43 + e 55";
+    startJavaFX.initialize();
+    runMainCode();
+//    launch(args);
+  }
 
+
+  public static void runMainCode() {
 
     int userChoice;
     int saveUserChoice ;
@@ -50,7 +55,7 @@ public class UI extends Application {
 
       switch (userChoice) {
         case 1:
-          codeSource = "int x = 43; if (x > 0) { x = x + 1; } ' This is a string ' ";
+          codeSource = "int x = 43; if (x > 0) { x = x + 1; } \" This is a string \" ";
 //          codeSource = "333445 2333 2323 3232";
           System.out.println(codeSource);
         userLog.append("Inputted Code: ").append(codeSource).append("\n");
@@ -65,8 +70,7 @@ public class UI extends Application {
 
         case 3:
           // By launching JavaFX on a different thread we can ensure safe thread behaviour and avoid exceptions form unpredictability
-          launch(args) ;
-
+          startJavaFX.runLater(() -> codeSourceFile(lexStage));
           // Ensuring that the main thread is waiting until the user has selected a file before continuing
           synchronized (fileLoadMutex) {
             while (!isFileLoaded) {
@@ -141,8 +145,8 @@ public class UI extends Application {
 
     switch (saveUserChoice) {
       case 1:
-        SaveUserFile.setContentToSave(userLog.toString());
-        SaveUserFile.main(new String[0]);
+        SaveUserFile.saveToFile(userLog.toString());
+//        SaveUserFile.main(new String[0]);
 //        saveFile(userLog.toString()) ;
         System.out.println("Entire File Saved !!");
         break;
@@ -158,8 +162,8 @@ public class UI extends Application {
           outputString.append(printer.printTokenCounts());
 //          saveFile(outputString.toString());
         }
-        SaveUserFile.setContentToSave(outputString.toString());
-        SaveUserFile.main(new String[0]);  // Start new JavaFX application
+        SaveUserFile.saveToFile(outputString.toString());
+//        SaveUserFile.main(new String[0]);  // Start new JavaFX application
         break;
       case 9:
         main(new String[1]) ;
@@ -184,10 +188,11 @@ public class UI extends Application {
     browseButton.setOnAction(tmp -> codeSourceFile(lexStage));
 
     VBox vbox = new VBox(browseButton);
-    Scene scene = new Scene(vbox, 301, 200);
+    Scene scene = new Scene(vbox, 300, 200);
 
     lexStage.setScene(scene);
     lexStage.show();
+
   }
 
   private static void codeSourceFile(Stage lexStage) {
@@ -210,7 +215,7 @@ public class UI extends Application {
           isFileLoaded = true;
           fileLoadMutex.notify();
         }
-        Platform.runLater(lexStage::close) ;
+//        Platform.runLater(lexStage::close) ;
       } catch (IOException e) {
         System.err.println("File load was unsuccessful :( : "+ e.getMessage());
       }

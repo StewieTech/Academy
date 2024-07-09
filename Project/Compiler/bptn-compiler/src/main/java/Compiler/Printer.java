@@ -23,6 +23,8 @@ public class Printer {
 
 //    }
     public String printTokensList() {
+        try {
+            Thread.currentThread().sleep(1000);
         StringBuilder stringOutput = new StringBuilder();
        stringOutput.append("\n Tokens Listed: \n");
         Map<TokenType, List<Tokens>> tokenMap = lexerInstance.getTokenMap();
@@ -31,26 +33,40 @@ public class Printer {
             tokenList.forEach(element -> stringOutput.append(element).append(", ")  ) ;
         });
         return stringOutput.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "null";
     }
 
-
-
     public String printTokensMap() {
+        try {
+            Thread.currentThread().sleep(1000);
         StringBuilder stringOutput = new StringBuilder() ;
         stringOutput.append("\n Token Map: \n");
         for (Map.Entry<TokenType, List<Tokens>> element : lexerInstance.getTokenMap().entrySet()) {
             stringOutput.append(element.getKey()).append(": ").append(element.getValue()).append("\n");
         }
         return stringOutput.toString() ;
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        return "null";
     }
 
     public String printTokenCounts() {
+        try {
+        Thread.currentThread().sleep(1000);
         StringBuilder stringOutput = new StringBuilder() ;
         stringOutput.append("\n Token Counts: \n");
         for (Map.Entry<TokenType, Integer> element : lexerInstance.getTokenCount().entrySet() ) {
             stringOutput.append(element.getKey()).append(": ").append(element.getValue()).append("\n") ;
         }
         return stringOutput.toString() ;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "null" ;
     }
 
 
@@ -60,7 +76,7 @@ public class Printer {
         System.out.println("2. Enter your code using a Scanner");
         System.out.println("3. Enter code using a FileInput");
         System.out.println("0. Exit");
-        System.out.print("Enter a number for your choice: ");
+        System.out.print("Enter a number for your choice: \n");
     }
 
     public static void displayCodeSource(String codeSource) {

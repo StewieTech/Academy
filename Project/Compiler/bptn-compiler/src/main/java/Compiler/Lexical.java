@@ -34,17 +34,26 @@ public class Lexical {
     return userInput.charAt(positionIndex);
   }
 
+  private char peekNextCharacter() {
+    return userInput.charAt(positionIndex + 1) ;
+  }
+
   // I want to injest the character then advance the position one over
   private boolean isSeparator(char character) {
-    return "{}(),;".indexOf(character) != -1;
+    return "[](){};,.@".indexOf(character) != -1 || character == ':' && peekNextCharacter() == ':';
   }
 
   private boolean isOperator(char character) {
-    return "+-*/|&!=%<>".indexOf(character) != -1;
+    return ".+-*/|&!=%<>^~".indexOf(character) != -1;
   }
-
   private boolean isKeyword(String element) {
-    return Set.of("if", "else", "return", "for", "while", "synchronized").contains(element);
+    return Set.of(
+            "abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue",
+            "default", "do", "double", "else", "enum", "extends", "final", "finally", "float", "for", "goto", "if",
+            "implements", "import", "instanceof", "int", "interface", "long", "native", "new", "package", "private",
+            "protected", "public", "return", "short", "static", "strictfp", "super", "switch", "synchronized", "this",
+            "throw", "throws", "transient", "try", "void", "volatile", "while"
+    ).contains(element);
   }
 
   private char consume() {
@@ -57,17 +66,6 @@ public class Lexical {
       numberString.append(consume());
     }
     return addTokens(TokenType.NUMBER, numberString.toString());
-  }
-
-  private Tokens consumeString() {
-    StringBuilder wordString = new StringBuilder();
-    consume();
-    while (positionIndex < userInput.length() && peek() != '"') {
-      wordString.append(consume());
-    }
-    consume();
-    return addTokens(TokenType.STRING, wordString.toString());
-
   }
 
   private Tokens consumeSeperator() {
@@ -89,11 +87,21 @@ public class Lexical {
     return addTokens(TokenType.ERROR, String.valueOf(consume()));
   }
 
+  private Tokens consumeString() {
+    StringBuilder wordString = new StringBuilder() ;
+    consume();
+    while (positionIndex < userInput.length() && peek() != '"') {
+      wordString.append(consume());
+    }
+    consume();
+    return addTokens(TokenType.STRING, wordString.toString());
+  }
+
   public Tokens consumeIdentifierOrKeyword() {
+
     StringBuilder wordString = new StringBuilder();
-    while (positionIndex < userInput.length() && Character.isLetterOrDigit(userInput.charAt(positionIndex))) {
-      wordString.append(userInput.charAt(positionIndex));
-      positionIndex++ ;
+    while (positionIndex < userInput.length() && Character.isLetterOrDigit(peek())) {
+      wordString.append(consume());
     }
     String element = wordString.toString();
     TokenType type = isKeyword(element) ? TokenType.KEYWORD : TokenType.IDENTIFIER;
@@ -101,13 +109,37 @@ public class Lexical {
     return addTokens(type, element);
   }
 
+  // Comments are interesting, in general we are looking for a / however we also have other charters like *. So we are making multiple conditions for each
+  public Tokens consumeComment() {
+    StringBuilder wordString = new StringBuilder();
+    consume();
+    if (peek() == '/') {
+      consume();
+      while (positionIndex < userInput.length() && peek() != '\n') {
+        wordString.append(consume());
+      }
+    } else if (peek() == '*') {
+      consume();
+      while (positionIndex < userInput.length() - 1 && !( peek() =='*' && peekNextCharacter() == '/' )) {
+        wordString.append(consume());
+      }
+      consume();
+      consume();
+
+    }
+    return addTokens(TokenType.COMMENT, wordString.toString());
+  }
+
   // I am going to be returning a tokentype based on what the character is
   public List<Tokens> codeToTokens() {
     List<Tokens> tokenList = new ArrayList<>();
     while (positionIndex < userInput.length()) {
-      char currentCharacter = userInput.charAt(positionIndex);
+      char currentCharacter = peek();
 
-      if (Character.isDigit(currentCharacter)) {
+      if (currentCharacter == '"') {
+        tokenList.add(consumeString());
+      }
+      else if (Character.isDigit(currentCharacter)) {
         tokenList.add(consumeNumber());
       } else if (Character.isWhitespace(currentCharacter)) {
         consumeWhitespace();
@@ -119,6 +151,8 @@ public class Lexical {
       }
       else if (Character.isLetter(currentCharacter)) {
         tokenList.add(consumeIdentifierOrKeyword());
+      } else if (currentCharacter == '/' && (peekNextCharacter() == '/' || peekNextCharacter() == '*')) {
+        tokenList.add(consumeComment());
       }
       else {
           tokenList.add(consumeError());
