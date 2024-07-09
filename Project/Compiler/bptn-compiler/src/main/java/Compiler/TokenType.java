@@ -1,5 +1,16 @@
 package Compiler;
 
+/**
+ * I have created Enums that represent the different token types that can be identified by the Lexical Analyzer
+ * <p>
+ * Here are some Fun Links that helped 
+ * <<a href="https://stackoverflow.com/questions/9969690/whats-the-advantage-of-a-java-enum-versus-a-class-with-public-static-final-fiel">...</a>>
+ * <<a href="https://stackoverflow.com/questions/17848207/making-a-lexical-analyzer">...</a>>
+ *
+ */
+
+
+
 public enum TokenType {
   // originally was going to use public static final's but enum's are generally
   // recommended

@@ -202,3 +202,42 @@ public class ToMapExample {
 
 
    ```
+
+   # Teachback Adavantages of Lambda Expressions
+	
+Conciseness
+- Shorter and Compact
+- less verbose 
+
+Readability
+- This refers to how other programmers can understand your code
+- this happens as unnecessary boilerplate code is removed and what's left is core logic, while this does somewhat depend on a reader's understanding of functional programming
+![alt text](image-20.png)
+
+Higher Order Functions
+- Accept functions as arguments, return functions or both
+- lambda expressions, functional interfaces, and stream operations in Java all contribute to the concept of higher-order functions in Java.
+
+Encapsulation versus Encapsulation of Behaviour
+Old Encapsulation
+- Hide the internal state of the object from the outside world.
+- Protect the integrity of the object's data by restricting direct access.
+
+Encapsulation of Behaviour
+- Modular: breaks down complexity into smaller focused functions
+- Reusability: Can be reused in the different parts of the program
+- Flexibility: 
+
+Traditional Encapsulation: Used to define the structure and behavior of objects, protecting their internal state.
+Encapsulation of Behavior: Used to isolate and modularize functionality, promoting reusability and flexibility in functional programmin
+
+First-Class Citizen
+In programming, an expression being passed as a "first-class citizen" means that it can be treated like any other variable. Specifically, it can be:
+
+Passed as an argument to functions.
+Returned from functions.
+Assigned to a variable.
+Stored in data structures.
+
+First-Class Citizen: Refers to the capability of functions (or other entities) to be treated as first-class objects. This is a property of the language, allowing functions to be passed, returned, and assigned.
+Higher-Order Function: Refers to a function that operates on other functions by taking them as arguments or returning them. This is a specific type of function that leverages the first-class nature of functions.

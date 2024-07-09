@@ -8,16 +8,22 @@ import java.util.Set;
 import java.util.HashSet;
 
 /* 
- * Updating this function to use HashMaps instead of ArrayLists
+ * Lexical.java is the heart of the Lexical Analyzer.
+ * I have built a codeToTokens method that finds the enum that each character belongs to and then I put the entity into the keymap their respective enum.
+ * Hashmaps made more sense to me over Arraylists as it would be simple to retrieve the value's and display them to the end user. I also was able to have an ArrayLists within my Hashmap combining data structures to better store the data
+ * By consisntently abstracting the methods, codeToToken's became easier to read and I was able to increase the complexity
  *
  * */
+
+
 public class Lexical {
   // I want to ingest the user's input and spit it out into tokens
-  private final String userInput; // should this be constant ?
+  private final String userInput;
   private int positionIndex;
   private Map<TokenType, List<Tokens>> tokensMap;
   private Map<TokenType, Integer> tokenCounter;
 
+  // The constructor creates two HashMaps and populates them with the enum TokenTypes.
   public Lexical(String userInput) {
     this.userInput = userInput;
     this.positionIndex = 0;
@@ -29,7 +35,10 @@ public class Lexical {
     }
   }
 
-  // Here I am just looking at the character
+
+  // The Idea of peeking and consuming characters that the analyzer has seen allows for 'cleaner' iteration through the code source
+  // peeking I am just looking at the character where consuming I am looking and updating my index. More in the article below
+  // <https://supunsetunga.medium.com/writing-a-parser-algorithms-and-implementation-a7c40f46493d>
   private char peek() {
     return userInput.charAt(positionIndex);
   }
@@ -38,7 +47,7 @@ public class Lexical {
     return userInput.charAt(positionIndex + 1) ;
   }
 
-  // I want to injest the character then advance the position one over
+  // The Boolean's simply clean up my codeToToken's method
   private boolean isSeparator(char character) {
     return "[](){};,.@".indexOf(character) != -1 || character == ':' && peekNextCharacter() == ':';
   }
@@ -46,13 +55,21 @@ public class Lexical {
   private boolean isOperator(char character) {
     return ".+-*/|&!=%<>^~".indexOf(character) != -1;
   }
+
+  // below are all 67 of Java's Keywords
+  // <https://www.geeksforgeeks.org/list-of-all-java-keywords/>
   private boolean isKeyword(String element) {
     return Set.of(
             "abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue",
             "default", "do", "double", "else", "enum", "extends", "final", "finally", "float", "for", "goto", "if",
             "implements", "import", "instanceof", "int", "interface", "long", "native", "new", "package", "private",
             "protected", "public", "return", "short", "static", "strictfp", "super", "switch", "synchronized", "this",
-            "throw", "throws", "transient", "try", "void", "volatile", "while"
+            "throw", "throws", "transient", "try", "void", "volatile", "while",
+            "true", "false", "null", "var", "yield",
+            "_",
+            "sealed", "non-sealed", "permits",
+            "record",
+            "exports", "module", "requires", "uses", "opens", "to", "with", "provides", "transitive"
     ).contains(element);
   }
 
@@ -60,6 +77,8 @@ public class Lexical {
     return userInput.charAt(positionIndex++);
   }
 
+
+  // the consume functions call addTokens() and add the identified ENUM, and it's respective values to its correct spot within the HashMaps
   private Tokens consumeNumber() {
     StringBuilder numberString = new StringBuilder();
     while (positionIndex < userInput.length() && Character.isDigit(peek())) {
@@ -105,7 +124,7 @@ public class Lexical {
     }
     String element = wordString.toString();
     TokenType type = isKeyword(element) ? TokenType.KEYWORD : TokenType.IDENTIFIER;
-    System.out.println("Adding token: " + type + " -> " + element);
+//    System.out.println("Adding token: " + type + " -> " + element);
     return addTokens(type, element);
   }
 
@@ -135,7 +154,6 @@ public class Lexical {
     List<Tokens> tokenList = new ArrayList<>();
     while (positionIndex < userInput.length()) {
       char currentCharacter = peek();
-
       if (currentCharacter == '"') {
         tokenList.add(consumeString());
       }
@@ -145,17 +163,14 @@ public class Lexical {
         consumeWhitespace();
       } else if (isSeparator(currentCharacter)) {
         tokenList.add(consumeSeperator());
-      }   else  if (isOperator(currentCharacter)) {
-           tokenList.add(consumeOperator());
-
-      }
-      else if (Character.isLetter(currentCharacter)) {
+      } else if (Character.isLetter(currentCharacter)) {
         tokenList.add(consumeIdentifierOrKeyword());
       } else if (currentCharacter == '/' && (peekNextCharacter() == '/' || peekNextCharacter() == '*')) {
         tokenList.add(consumeComment());
-      }
-      else {
-          tokenList.add(consumeError());
+      } else  if (isOperator(currentCharacter)) {
+        tokenList.add(consumeOperator());
+      } else {
+        tokenList.add(consumeError());
       }
     }
     return tokenList;
@@ -164,7 +179,7 @@ public class Lexical {
 
   // functions
 
-  // helper functions, may move to new file not sure yet
+  // Using my Tokens Constructor to insert the new element into the ArrayList within the Hashmap
   private Tokens addTokens(TokenType type, String element) {
     Tokens token = new Tokens(type, element);
     tokensMap.get(type).add(token);
