@@ -18,15 +18,15 @@ public class startJavaFX extends Application {
         }
     }
 
-    private static void waitForStart() {
-        while (!Platform.isFxApplicationThread() ) {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
-    }
+//    private static void waitForStart() {
+//        while (!Platform.isFxApplicationThread() ) {
+//            try {
+//                Thread.sleep(50);
+//            } catch (InterruptedException e) {
+//                Thread.currentThread().interrupt();
+//            }
+//        }
+//    }
 
     public static void runLater(Runnable task) {
         initialize();

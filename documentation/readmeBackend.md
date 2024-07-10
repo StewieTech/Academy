@@ -88,3 +88,4 @@ Message
     receiverId INTEGER (foreign key)
     textMessage TEXT
 ```
+![alt text](image-22.png)

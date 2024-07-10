@@ -1,14 +1,17 @@
 package Compiler;
 
-
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+/**
+ * SaveUserFile and Opening codeFromFile use two different JavaFX stages. as this is the case I created two seperate classes to manage their behavour better
+ *
+ */
+
+
 
 public class SaveUserFile  {
     private static String contentToSave;
@@ -18,12 +21,13 @@ public class SaveUserFile  {
     }
 
 
+    // <https://www.tutorialspoint.com/how-to-save-files-using-a-file-chooser-in-javafx>
 //    @Override
     public static void saveToFile(String userOutput) {
         setContentToSave(userOutput);
         startJavaFX.runLater(() -> {
             Stage saveStage = new Stage();
-        saveStage.setTitle("Save your lexical analysis to a file !! :D");
+//        saveStage.setTitle("Save your lexical analysis to a file !! :D");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save your lexical analysis to a file !! :D");
 
@@ -45,12 +49,6 @@ public class SaveUserFile  {
         });
     }
 
-//    public static void saveToFile(String content) {
-//      setContentToSave(content);
-//      Platform.runLater(() -> {
-//          Stage saveStage = new Stage();
-//          new SaveUserFile().start(saveStage);
-//      });
-//    }
+
 }
 

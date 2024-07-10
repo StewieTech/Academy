@@ -4,9 +4,8 @@ package Compiler;
 // <https://openjfx.io/javadoc/18/javafx.graphics/javafx/application/Application.html#launch(java.lang.String...)>
 import javafx.application.Application ;
 import javafx.stage.Stage;
-//import javafx.application.Platform;
+import javafx.application.Platform;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import javafx.stage.FileChooser;
@@ -195,7 +194,7 @@ public class UI extends Application {
 
   }
 
-  private static void codeSourceFile(Stage lexStage) {
+  public static void codeSourceFile(Stage lexStage) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Select your code file to be Analyzed !! :D");
     fileChooser.getExtensionFilters().addAll(
@@ -224,31 +223,12 @@ public class UI extends Application {
     }
   }
 
-
-//  private static void saveFile(String userOutput) {
-//    FileChooser fileChooser = new FileChooser() ;
-//    fileChooser.setTitle("Save your lexical analysis to a file !! :D");
-//    Platform.runLater(() ->  launch(args) {
-//
-//    Stage saveLexStage = new Stage();
-//
-//    File userFile = fileChooser.showSaveDialog(saveLexStage);
-//    if (userFile != null) {
-//      try (FileWriter fileWriter = new FileWriter(userFile)) {
-//        fileWriter.write(userOutput);
-//        System.out.println("Your file was saved !! Congratulations !!");
-//      } catch (IOException e) {
-//        System.err.println("Your save failed :( " + e.getMessage());
-//      }
-//    }
-//    });
-//  }
-
   // Getter methods
   public static String getCodeSource() {
     return codeSource;
   }
   public static void setCodeSource(String codeSource) {
+    UI.codeSource = codeSource;
   }
 
   public static boolean getIsFileLoaded() {
@@ -258,4 +238,9 @@ public class UI extends Application {
   public static Object getFileLoadMutex() {
     return fileLoadMutex ;
   }
+
+  public static StringBuilder getUserLog() {
+    return userLog ;
+  }
+
 }
