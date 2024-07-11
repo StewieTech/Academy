@@ -7,7 +7,8 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
- * FunFacts print to console while JavaFX is open. Thought this would be a fun use of multithreading, almost similar to Video Game Loading Screens
+ * FunFacts print to console while JavaFX is open. Thought this would be a fun use of multithreading, almost similar to Video Game Loading Screens.
+ * I Used a LinkedHashMap as originally I was thinking I may want to keep insertion order and just export items sequentially. Now I have decided to just export FunFacts at random but keeping a LinkedHashMap supports the idea that either or is possible.
  */
 
 

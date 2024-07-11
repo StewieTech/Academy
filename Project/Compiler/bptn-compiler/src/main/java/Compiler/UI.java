@@ -1,7 +1,5 @@
 package Compiler;
 
-// JavaFX handles Browsing for Files and Saving Outputs
-// <https://openjfx.io/javadoc/18/javafx.graphics/javafx/application/Application.html#launch(java.lang.String...)>
 import javafx.application.Application ;
 import javafx.stage.Stage;
 import java.io.File;
@@ -17,6 +15,12 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ *
+ * JavaFX handles Browsing for Files and Saving Outputs
+ * <<a href="https://openjfx.io/javadoc/18/javafx.graphics/javafx/application/Application.html#launch(java.lang.String...)">JavaFX Application"</a>>
+ *
+ */
 public class UI extends Application {
   private static String codeSource = "";
   private static  Scanner scanner = new Scanner(System.in);
@@ -29,8 +33,10 @@ public class UI extends Application {
 
   /**
    * <h1>UI.java Controls all the main UI functionality</h1>
-   * <p> The idea is user's will be printed console menu's which they will select from.
-   * Introducing JavaFX mean that some multithreading behaviour handling needed to be added.
+   * ~~~
+   * <h3>To Start the Lexical Analyzer, run GUIStarter.java </h3>
+   * <p> The idea is users will be printed console menus which they will select from. <br>
+   * Introducing JavaFX means that some multithreading behaviour handling needed to be added.
    * As I have two different JavaFX stages that may not be run by the user, creating startJavaFX was crucial to encapsulate the starting behaviour. This ensured that if I am using JavaFX, it is run for sure.
    * I decided to create a small main function and run the methods from here to have better control of ensuring JavaFX has been initialized </p>
    *
@@ -52,12 +58,10 @@ public class UI extends Application {
       Printer.displayInitialMenu();
       userChoice = scanner.nextInt();
       userLog.append("Initial Menu selected: ").append(userChoice).append("\n");
-//       scanner.next
 
       switch (userChoice) {
         case 1:
           codeSource = "int x = 43; if (x > 0) { x = x + 1; } \" This is a string \" ";
-//          codeSource = "333445 2333 2323 3232";
           System.out.println(codeSource);
         userLog.append("Inputted Code: ").append(codeSource).append("\n");
           break;
@@ -98,7 +102,7 @@ public class UI extends Application {
       }
     } while (userChoice < 1 || userChoice > 3);
 
-      // As Printer accepts a lexicalInstance
+      // As Printer accepts a lexicalInstance, we initiate a Lexical object to pass into Printer.
       Lexical lexerInstance = new Lexical(codeSource);
       List<Tokens> tokens = lexerInstance.codeToTokens(); // invoking method to turn source code into tokens
       Printer printer = new Printer(lexerInstance);
@@ -174,7 +178,7 @@ public class UI extends Application {
       scanner.close();
   }
 
-  // As I extended application, I must implement its abstract method start. Originally had a browse button but decided just to bring up the codeSourceFile windows explorer directly
+  // As I extended application, I must implement its abstract method start. Originally had a browse button but decided just to bring up the codeSourceFile window explorer directly
   @Override
   public void start(Stage lexStage) throws Exception {
 //    lexStage.setTitle("Lexical Analyzer");
@@ -186,7 +190,7 @@ public class UI extends Application {
 //    lexStage.show();
   }
 
-  // Case3 calls runLater to start a Java Thread then
+  // Case3 calls runLater to start a Java Thread then this function is run.
   public static void codeSourceFile(Stage lexStage) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Select your code file to be Analyzed !! :D");
@@ -196,7 +200,6 @@ public class UI extends Application {
     );
 
     startFunFacts();
-
     File fileChosen = fileChooser.showOpenDialog(lexStage);
     stopFunFacts();
     if (fileChosen != null) {
@@ -232,7 +235,7 @@ public class UI extends Application {
           funFactsTimer.cancel();
         }
       }
-    }, 0, 6000); // Show a fun fact every 3 seconds
+    }, 0, 6000); // Show a fun fact every 6 seconds
   }
 
   public static void stopFunFacts() {

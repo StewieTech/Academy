@@ -8,8 +8,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.nio.file.Files;
 
-// As JavaFX is on a different thread then main we use the library below to handle race conditions and concurrency
-// decided just to revert back to using synchronized to handle multithreading no longer using import java.util.concurrent.CountDownLatch;
+/**
+ * <p>
+ * Here we are testing two things 1) if code loaded from a temp file is equal to what we expect 2) if code provided to codeSource also equals what we expect
+ * <br>
+ * As JavaFX is on a different thread then the main thread, we also need to think about how to handle race conditions and concurrency.
+* Originally was checking out java.util.concurrent.CountDownLatch but decided just to revert back to using synchronized to handle multithreading ;
+ * </p>
+*/
 
 public class testUI {
 
@@ -74,10 +80,8 @@ public class testUI {
         startTestUI();
         System.out.println("Running testLoadCodeFromFile");
         new testUI().testLoadCodeFromFile();
-//        System.out.println("SUCCESS!!: Temp File matches the example codesource !!");
 
         System.out.println("\n Running testUserInputCode");
         new testUI().testUserInputCode();
-//        System.out.println("SUCCESS!!: User input matches the example codesource !!");
     }
 }

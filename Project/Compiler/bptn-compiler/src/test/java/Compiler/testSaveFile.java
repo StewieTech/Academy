@@ -14,12 +14,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- *
+ * <p>
  * Using a temp file to test the javaFX saving operation. Below are some resources that helped
+ * </p>
  *
- * <a href="https://blogs.oracle.com/javamagazine/post/working-and-unit-testing-with-temporary-files-in-java">...</a>
- * <a href="https://coderanch.com/t/184661/certification/JUnit-test-read-write-file">...</a>
- * <a href="https://docs.oracle.com/javase/tutorial/essential/io/file.html">...</a>
+ * <a href="https://blogs.oracle.com/javamagazine/post/working-and-unit-testing-with-temporary-files-in-java">Working with Unit Tests</a>
+ * <a href="https://coderanch.com/t/184661/certification/JUnit-test-read-write-file">Junit Read and Write File</a>
+ * <a href="https://docs.oracle.com/javase/tutorial/essential/io/file.html">file Tutorial</a>
  */
 
 public class testSaveFile {

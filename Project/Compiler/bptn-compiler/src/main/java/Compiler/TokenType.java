@@ -4,25 +4,20 @@ package Compiler;
  * I have created Enums that represent the different token types that can be identified by the Lexical Analyzer
  * <p>
  * Here are some Fun Links that helped 
- * <<a href="https://stackoverflow.com/questions/9969690/whats-the-advantage-of-a-java-enum-versus-a-class-with-public-static-final-fiel">...</a>>
- * <<a href="https://stackoverflow.com/questions/17848207/making-a-lexical-analyzer">...</a>>
+ * <<a href="https://stackoverflow.com/questions/9969690/whats-the-advantage-of-a-java-enum-versus-a-class-with-public-static-final-fiel">Java Enums</a>>
+ * <<a href="https://stackoverflow.com/questions/17848207/making-a-lexical-analyzer">Making a Lexical Analyzer</a>>
  *
  */
-
-
 
 public enum TokenType {
   /**
    *
    * <p>originally was going to use public static final's but enum's are generally recommended
    * Below are some fun links that helped : </p>
-   * <<a href="https://stackoverflow.com/questions/9969690/whats-the-advantage-of-a-java-enum-versus-a-class-with-public-static-final-fiel">...</a>>
-   * <<a href="https://stackoverflow.com/questions/17848207/making-a-lexical-analyzer">...</a>>
+   * <<a href="https://stackoverflow.com/questions/9969690/whats-the-advantage-of-a-java-enum-versus-a-class-with-public-static-final-fiel">Enums Versus Static Final</a>>
+   * <<a href="https://stackoverflow.com/questions/17848207/making-a-lexical-analyzer">Lexical Analyzer Info</a>>
    */
   NUMBER, STRING, IDENTIFIER, KEYWORD, OPERATOR, SEPERATOR, WHITESPACE, COMMENT, ERROR;
-
-  //
-
 
 /**
  *
@@ -127,4 +122,5 @@ public enum TokenType {
  * Helpful Documentation
  * <https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F/java/lang/Character.html>
  */
+
 }
