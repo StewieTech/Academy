@@ -14,7 +14,7 @@ import java.nio.file.Files;
 public class testUI {
 
     @BeforeAll
-    public static void initToolkit() {
+    public static void startTestUI() {
         Platform.startup(() -> {}); // Initialize JavaFX platform
     }
 
@@ -29,13 +29,13 @@ public class testUI {
 
                 File testFile = File.createTempFile("test", ".java");
                 Files.write(testFile.toPath(), "int x = 42;".getBytes());
-                System.out.println("Created a temporary file with test content");
+                System.out.println("Created a temporary file with test content" + testFile);
 
                 UI.setCodeSource(new String(Files.readAllBytes(testFile.toPath())));
                 assertEquals("int x = 42;", UI.getCodeSource(), "Code source should match file content");
-                System.out.println("Loaded code matches the expected content");
-
+                System.out.println("SUCCESS!!: Temp File matches the example codesource !!" + " " +  UI.getCodeSource());
                 testFile.delete();
+                System.out.println("Test file deleted: " + testFile.toString());
             } catch (Exception e) {
                 fail("Exception during test: " + e.getMessage());
             }
@@ -56,12 +56,13 @@ public class testUI {
                 String userInput = "int y = 100;";
                 UI.setCodeSource(userInput);
                 assertEquals(userInput, UI.getCodeSource(), "Code source should match user input");
-                System.out.println("User input code matches the expected content");
+                System.out.println("SUCCESS!!: User input matches the example codesource !!" + " " + UI.getCodeSource());
             } catch (Exception e) {
                 fail("Exception during test: " + e.getMessage());
             }
         });
 
+        // Giving time for the JavaFX thread just to manage unexpected behaviours
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -70,7 +71,7 @@ public class testUI {
     }
 
     public static void main(String[] args) {
-        initToolkit();
+        startTestUI();
         System.out.println("Running testLoadCodeFromFile");
         new testUI().testLoadCodeFromFile();
 //        System.out.println("SUCCESS!!: Temp File matches the example codesource !!");

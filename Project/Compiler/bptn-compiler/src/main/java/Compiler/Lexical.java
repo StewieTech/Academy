@@ -7,14 +7,12 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 
-/* 
- * Lexical.java is the heart of the Lexical Analyzer.
- * I have built a codeToTokens method that finds the enum that each character belongs to and then I put the entity into the keymap their respective enum.
- * Hashmaps made more sense to me over Arraylists as it would be simple to retrieve the value's and display them to the end user. I also was able to have an ArrayLists within my Hashmap combining data structures to better store the data
- * By consisntently abstracting the methods, codeToToken's became easier to read and I was able to increase the complexity
- *
- * */
-
+/**
+ *  <h1> Lexical.java is the heart of the Lexical Analyzer.</h1>
+ * <p>  I have built a codeToTokens method that finds the enum that each character belongs to and then I put the entity into the keymap with their respective enum.
+ *   Hashmaps made more sense to me over Arraylists as it would be simple to retrieve the value's and display them to the end user. I also was able to have an ArrayLists within my Hashmap combining data structures to better store the data.
+ *   By consistently abstracting the methods, codeToToken's became easier to read and I was able to increase the complexity
+ */
 
 public class Lexical {
   // I want to ingest the user's input and spit it out into tokens

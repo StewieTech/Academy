@@ -8,6 +8,7 @@ import java.io.IOException;
 
 /**
  * SaveUserFile and Opening codeFromFile use two different JavaFX stages. as this is the case I created two seperate classes to manage their behavour better
+ * <p> Links that helped:
  *  <<a href="https://www.tutorialspoint.com/how-to-save-files-using-a-file-chooser-in-javafx">...</a>>
  *
  */

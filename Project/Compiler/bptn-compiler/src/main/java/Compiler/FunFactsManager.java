@@ -6,6 +6,11 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+/**
+ * FunFacts print to console while JavaFX is open. Thought this would be a fun use of multithreading, almost similar to Video Game Loading Screens
+ */
+
+
 public class FunFactsManager {
     private LinkedHashMap<String, Boolean> funFacts;
     private Random random;

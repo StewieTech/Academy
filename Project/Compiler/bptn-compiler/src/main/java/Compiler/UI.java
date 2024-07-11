@@ -8,9 +8,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import javafx.stage.FileChooser;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
+//import javafx.scene.Scene;
+//import javafx.scene.control.Button;
+//import javafx.scene.layout.VBox;
 
 import java.util.List;
 import java.util.Scanner;
@@ -27,8 +27,16 @@ public class UI extends Application {
   private static final FunFactsManager funFactsManager = new FunFactsManager();
   private static Timer funFactsTimer = new Timer();
 
-  // As I have two different JavaFX stages that may not be run by the user, creating startJavaFX was crucial to encapsulate the starting behaviour. This ensured that if I am using JavaFX, it is run
-  // I decide to create a small main funciton and run the methods from here to have better control of ensuring JavaFX has been initialized
+  /**
+   * <h1>UI.java Controls all the main UI functionality</h1>
+   * <p> The idea is user's will be printed console menu's which they will select from.
+   * Introducing JavaFX mean that some multithreading behaviour handling needed to be added.
+   * As I have two different JavaFX stages that may not be run by the user, creating startJavaFX was crucial to encapsulate the starting behaviour. This ensured that if I am using JavaFX, it is run for sure.
+   * I decided to create a small main function and run the methods from here to have better control of ensuring JavaFX has been initialized </p>
+   *
+   */
+
+
   public static void main(String[] args) {
     startJavaFX.initialize();
     runMainCode();
@@ -166,7 +174,7 @@ public class UI extends Application {
       scanner.close();
   }
 
-  // As I extended application, I must implement its abstract method start
+  // As I extended application, I must implement its abstract method start. Originally had a browse button but decided just to bring up the codeSourceFile windows explorer directly
   @Override
   public void start(Stage lexStage) throws Exception {
 //    lexStage.setTitle("Lexical Analyzer");
@@ -178,7 +186,7 @@ public class UI extends Application {
 //    lexStage.show();
   }
 
-  // Creates an instance of FileChooser.
+  // Case3 calls runLater to start a Java Thread then
   public static void codeSourceFile(Stage lexStage) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Select your code file to be Analyzed !! :D");
