@@ -7,9 +7,7 @@ package Compiler;
  *
  * */
 
-
 // a lexeme is a sequence of characters in the source code that matches a token
-// pattern
 public  class Tokens {
     private final TokenType type;
     private final String lexeme;
@@ -18,7 +16,6 @@ public  class Tokens {
         this.type = type;
         this.lexeme = lexeme
         ;
-
     }
 
     public TokenType getType() {

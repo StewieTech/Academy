@@ -8,10 +8,9 @@ import java.io.IOException;
 
 /**
  * SaveUserFile and Opening codeFromFile use two different JavaFX stages. as this is the case I created two seperate classes to manage their behavour better
+ *  <<a href="https://www.tutorialspoint.com/how-to-save-files-using-a-file-chooser-in-javafx">...</a>>
  *
  */
-
-
 
 public class SaveUserFile  {
     private static String contentToSave;
@@ -20,35 +19,37 @@ public class SaveUserFile  {
         contentToSave = content;
     }
 
-
-    // <https://www.tutorialspoint.com/how-to-save-files-using-a-file-chooser-in-javafx>
 //    @Override
     public static void saveToFile(String userOutput) {
         setContentToSave(userOutput);
         startJavaFX.runLater(() -> {
             Stage saveStage = new Stage();
-//        saveStage.setTitle("Save your lexical analysis to a file !! :D");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save your lexical analysis to a file !! :D");
+            UI.startFunFacts();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save your lexical analysis to a file !! :D");
 
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text files", "*.txt*"),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
-        );
-        File userFile = fileChooser.showSaveDialog(saveStage);
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Text files", "*.txt"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*")
+            );
+            File userFile = fileChooser.showSaveDialog(saveStage);
 
-        if (userFile != null) {
-            try (FileWriter fileWriter = new FileWriter(userFile)) {
-                fileWriter.write(contentToSave);
+            if (userFile != null) {
+                writeFile(userFile, contentToSave);
+                saveStage.close();
                 System.out.println("Your file was saved !! Congratulations !!");
-            } catch (IOException e) {
-                System.err.println("Your save failed :( " + e.getMessage());
+            } else {
+                System.out.println("File save was cancelled.");
             }
-        }
-        saveStage.close();
+            UI.stopFunFacts();
         });
     }
 
-
+    public static void writeFile(File file, String content) {
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            fileWriter.write(content);
+        } catch (IOException e) {
+            System.err.println("Your save failed :( " + e.getMessage());
+        }
+    }
 }
-

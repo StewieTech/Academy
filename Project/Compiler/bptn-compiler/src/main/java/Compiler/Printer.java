@@ -13,18 +13,11 @@ public class Printer {
 
     static Scanner scanner = new Scanner(System.in);
 
-
-
-//    public void printTokensList() {
-//        List<Tokens> tokenList = lexerInstance.codeToTokens();
-//        System.out.println("\n Tokens Listed");
-//        for (Tokens token : tokenList) {
-//            System.out.println(token);
-
-//    }
+    // Printing... ensures main and JavaFX thread aren't printing to the console at the same time
     public String printTokensList() {
+        System.out.println("Printing... ");
         try {
-            Thread.currentThread().sleep(1000);
+            Thread.currentThread().sleep(2000);
         StringBuilder stringOutput = new StringBuilder();
        stringOutput.append("\n Tokens Listed: \n");
         Map<TokenType, List<Tokens>> tokenMap = lexerInstance.getTokenMap();
@@ -40,23 +33,25 @@ public class Printer {
     }
 
     public String printTokensMap() {
+        System.out.println("Printing... ");
         try {
-            Thread.currentThread().sleep(1000);
-        StringBuilder stringOutput = new StringBuilder() ;
-        stringOutput.append("\n Token Map: \n");
-        for (Map.Entry<TokenType, List<Tokens>> element : lexerInstance.getTokenMap().entrySet()) {
-            stringOutput.append(element.getKey()).append(": ").append(element.getValue()).append("\n");
-        }
-        return stringOutput.toString() ;
+            Thread.currentThread().sleep(2000);
+            StringBuilder stringOutput = new StringBuilder() ;
+            stringOutput.append("\n Token Map: \n");
+            for (Map.Entry<TokenType, List<Tokens>> element : lexerInstance.getTokenMap().entrySet()) {
+                stringOutput.append(element.getKey()).append(": ").append(element.getValue()).append("\n");
+            }
+            return stringOutput.toString() ;
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         return "null";
     }
 
     public String printTokenCounts() {
+        System.out.println("Printing... ");
         try {
-        Thread.currentThread().sleep(1000);
+        Thread.currentThread().sleep(2000);
         StringBuilder stringOutput = new StringBuilder() ;
         stringOutput.append("\n Token Counts: \n");
         for (Map.Entry<TokenType, Integer> element : lexerInstance.getTokenCount().entrySet() ) {
@@ -71,10 +66,10 @@ public class Printer {
 
 
     public static void displayInitialMenu() {
-        System.out.println("\n Welcome to the Lexical Analyzer !! \n Please select an Input option \n ");
-        System.out.println("1. Click for Example");
-        System.out.println("2. Enter your code using a Scanner");
-        System.out.println("3. Enter code using a FileInput");
+        System.out.println("\n Welcome to the Lexical Analyzer !! \n Please select an Input option to analyze your code \n ");
+        System.out.println("1. Click here to use an example code input for the Lexical Analyzer");
+        System.out.println("2. Enter your code/input into a Scanner");
+        System.out.println("3. Input your code file using JavaFX");
         System.out.println("0. Exit");
         System.out.print("Enter a number for your choice: \n");
     }

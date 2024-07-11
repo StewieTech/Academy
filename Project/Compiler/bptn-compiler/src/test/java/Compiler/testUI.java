@@ -1,15 +1,15 @@
 package Compiler;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
+
+// As JavaFX is on a different thread then main we use the library below to handle race conditions and concurrency
+// decided just to revert back to using synchronized to handle multithreading no longer using import java.util.concurrent.CountDownLatch;
 
 public class testUI {
 
@@ -24,8 +24,8 @@ public class testUI {
             try {
                 // Set up the stage and UI instance
                 Stage stage = new Stage();
-                UI uiInstance = new UI();
-                uiInstance.start(stage);
+                UI uiObject = new UI();
+                uiObject.start(stage);
 
                 File testFile = File.createTempFile("test", ".java");
                 Files.write(testFile.toPath(), "int x = 42;".getBytes());
@@ -35,14 +35,12 @@ public class testUI {
                 assertEquals("int x = 42;", UI.getCodeSource(), "Code source should match file content");
                 System.out.println("Loaded code matches the expected content");
 
-                // Clean up the temporary file
                 testFile.delete();
             } catch (Exception e) {
                 fail("Exception during test: " + e.getMessage());
             }
         });
 
-        // Allow time for the JavaFX thread to complete
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -64,7 +62,6 @@ public class testUI {
             }
         });
 
-        // Allow time for the JavaFX thread to complete
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {

@@ -49,7 +49,7 @@ public class Lexical {
 
   // The Boolean's simply clean up my codeToToken's method
   private boolean isSeparator(char character) {
-    return "[](){};,.@".indexOf(character) != -1 || character == ':' && peekNextCharacter() == ':';
+    return character == ':' && peekNextCharacter() == ':' ||  "[](){};,.'@:".indexOf(character) != -1;
   }
 
   private boolean isOperator(char character) {
@@ -161,12 +161,12 @@ public class Lexical {
         tokenList.add(consumeNumber());
       } else if (Character.isWhitespace(currentCharacter)) {
         consumeWhitespace();
-      } else if (isSeparator(currentCharacter)) {
-        tokenList.add(consumeSeperator());
       } else if (Character.isLetter(currentCharacter)) {
         tokenList.add(consumeIdentifierOrKeyword());
       } else if (currentCharacter == '/' && (peekNextCharacter() == '/' || peekNextCharacter() == '*')) {
         tokenList.add(consumeComment());
+      } else if (isSeparator(currentCharacter)) {
+        tokenList.add(consumeSeperator());
       } else  if (isOperator(currentCharacter)) {
         tokenList.add(consumeOperator());
       } else {

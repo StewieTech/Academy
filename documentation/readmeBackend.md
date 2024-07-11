@@ -89,3 +89,5 @@ Message
     textMessage TEXT
 ```
 ![alt text](image-22.png)
+Operators
+![alt text](image-23.png)

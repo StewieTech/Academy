@@ -14,20 +14,10 @@ public class startJavaFX extends Application {
         if (!isJavaFXstarted) {
             new Thread(() -> launch(startJavaFX.class)).start();
             isJavaFXstarted = true;
-//            waitForStart();
         }
     }
 
-//    private static void waitForStart() {
-//        while (!Platform.isFxApplicationThread() ) {
-//            try {
-//                Thread.sleep(50);
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//            }
-//        }
-//    }
-
+//    Hiding the runLater Platform implementation and using this one to ensure that JavaFX has been started if it already hasn't been
     public static void runLater(Runnable task) {
         initialize();
         Platform.runLater(task);

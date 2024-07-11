@@ -4,40 +4,34 @@ package Compiler;
 // <https://openjfx.io/javadoc/18/javafx.graphics/javafx/application/Application.html#launch(java.lang.String...)>
 import javafx.application.Application ;
 import javafx.stage.Stage;
-import javafx.application.Platform;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import javafx.stage.FileChooser;
-//import javafx.stage.FileChooser.ExtensionFilter ;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-// As JavaFX is on a different thread then main we use the library below to handle race conditions and concurrency
-// decided just to revert back to using synchronized to handle multithreading
-//import java.util.concurrent.CountDownLatch;
-
-
-
-
 import java.util.List;
-//import java.util.Map;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class UI extends Application {
-    private static String codeSource = "";
-    private static Scanner scanner = new Scanner(System.in);
-    private static boolean isFileLoaded = false;
-//    private static final CountDownLatch latch = new CountDownLatch(2);
+  private static String codeSource = "";
+  private static  Scanner scanner = new Scanner(System.in);
+  private static boolean isFileLoaded = false;
   private static final Object fileLoadMutex = new Object();
-  private static StringBuilder userLog = new StringBuilder();
+  private static final StringBuilder userLog = new StringBuilder();
   private static Stage lexStage;
+  private static final FunFactsManager funFactsManager = new FunFactsManager();
+  private static Timer funFactsTimer = new Timer();
 
+  // As I have two different JavaFX stages that may not be run by the user, creating startJavaFX was crucial to encapsulate the starting behaviour. This ensured that if I am using JavaFX, it is run
+  // I decide to create a small main funciton and run the methods from here to have better control of ensuring JavaFX has been initialized
   public static void main(String[] args) {
     startJavaFX.initialize();
     runMainCode();
-//    launch(args);
   }
 
 
@@ -60,8 +54,9 @@ public class UI extends Application {
         userLog.append("Inputted Code: ").append(codeSource).append("\n");
           break;
 
+
         case 2:
-          System.out.println("Enter your code:");
+          System.out.println("Enter your input/code and turn it into TOKENS :D :");
           scanner.nextLine() ;
           codeSource = scanner.nextLine();
           userLog.append("Inputted Code: ").append(codeSource).append("\n");
@@ -69,6 +64,7 @@ public class UI extends Application {
 
         case 3:
           // By launching JavaFX on a different thread we can ensure safe thread behaviour and avoid exceptions form unpredictability
+          // fileLoadMutex is simply an Object, allowing me to use object methods like .wait(). This object waits for notify() within the codeSourceFile method.
           startJavaFX.runLater(() -> codeSourceFile(lexStage));
           // Ensuring that the main thread is waiting until the user has selected a file before continuing
           synchronized (fileLoadMutex) {
@@ -94,9 +90,9 @@ public class UI extends Application {
       }
     } while (userChoice < 1 || userChoice > 3);
 
-      // Create an instance of LexicalAnalyzer with the input string and then tokenizing the codeSource
+      // As Printer accepts a lexicalInstance
       Lexical lexerInstance = new Lexical(codeSource);
-      List<Tokens> tokens = lexerInstance.codeToTokens();
+      List<Tokens> tokens = lexerInstance.codeToTokens(); // invoking method to turn source code into tokens
       Printer printer = new Printer(lexerInstance);
 
       Printer.displayCodeSource(codeSource);
@@ -104,7 +100,6 @@ public class UI extends Application {
       Printer.displayPrintMenu();
       userChoice = scanner.nextInt();
       userLog.append("Print Menu Option Selected: ").append(userChoice).append("\n");
-//    scanner.nextLine();
 
       switch (userChoice) {
         case 1:
@@ -142,58 +137,48 @@ public class UI extends Application {
     Printer.displaySavingMenu();
     saveUserChoice = scanner.nextInt() ;
 
-    switch (saveUserChoice) {
-      case 1:
-        SaveUserFile.saveToFile(userLog.toString());
-//        SaveUserFile.main(new String[0]);
-//        saveFile(userLog.toString()) ;
-        System.out.println("Entire File Saved !!");
-        break;
-      case 2:
-        StringBuilder outputString = new StringBuilder();
-        if (userChoice == 1) {
-          outputString.append(printer.printTokensList());
-//          saveFile(outputString.toString());
-      } else if (userChoice == 2) {
-          outputString.append(printer.printTokensMap());
-//          saveFile(outputString.toString());
-        } else {
-          outputString.append(printer.printTokenCounts());
-//          saveFile(outputString.toString());
-        }
-        SaveUserFile.saveToFile(outputString.toString());
-//        SaveUserFile.main(new String[0]);  // Start new JavaFX application
-        break;
-      case 9:
-        main(new String[1]) ;
-        break ;
-      case 0:
-        System.out.println("Thanks for using the fabulous Lexical Analyzer !! ");
-        return ;
-      default :
-        System.out.println("Horrible Choice! Do Better!! Pick a valid one !!");
-    }
-
+      switch (saveUserChoice) {
+        case 1: // Save's Entire file by exporting what's in userLog to .txt file
+          SaveUserFile.saveToFile(userLog.toString());
+          System.out.println("Entire File Saved !!");
+          break;
+        case 2: // Saves the printer's string output
+          StringBuilder outputString = new StringBuilder();
+          if (userChoice == 1) {
+            outputString.append(printer.printTokensList());
+          } else if (userChoice == 2) {
+            outputString.append(printer.printTokensMap());
+          } else {
+            outputString.append(printer.printTokenCounts());
+          }
+          SaveUserFile.saveToFile(outputString.toString());
+          break;
+        case 9:
+          main(new String[1]) ;
+          break ;
+        case 0:
+          System.out.println("Thanks for using the fabulous Lexical Analyzer !! ");
+          return ;
+        default :
+          System.out.println("Horrible Choice! Do Better!! Pick a valid one !!");
+      }
     } while (saveUserChoice != 0) ;
-
       scanner.close();
   }
 
-
+  // As I extended application, I must implement its abstract method start
   @Override
   public void start(Stage lexStage) throws Exception {
-    lexStage.setTitle("Lexical Analyzer");
-    Button browseButton = new Button("Browse for Files");
-    browseButton.setOnAction(tmp -> codeSourceFile(lexStage));
-
-    VBox vbox = new VBox(browseButton);
-    Scene scene = new Scene(vbox, 300, 200);
-
-    lexStage.setScene(scene);
-    lexStage.show();
-
+//    lexStage.setTitle("Lexical Analyzer");
+//    Button browseButton = new Button("Browse for Files");
+//    browseButton.setOnAction(tmp -> codeSourceFile(lexStage));
+//    VBox vbox = new VBox(browseButton);
+//    Scene scene = new Scene(vbox, 300, 200);
+//    lexStage.setScene(scene);
+//    lexStage.show();
   }
 
+  // Creates an instance of FileChooser.
   public static void codeSourceFile(Stage lexStage) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Select your code file to be Analyzed !! :D");
@@ -202,7 +187,10 @@ public class UI extends Application {
             new FileChooser.ExtensionFilter("Java files", "*.java*")
     );
 
+    startFunFacts();
+
     File fileChosen = fileChooser.showOpenDialog(lexStage);
+    stopFunFacts();
     if (fileChosen != null) {
       try {
         codeSource = new String(Files.readAllBytes(fileChosen.toPath()));
@@ -214,12 +202,34 @@ public class UI extends Application {
           isFileLoaded = true;
           fileLoadMutex.notify();
         }
-//        Platform.runLater(lexStage::close) ;
       } catch (IOException e) {
         System.err.println("File load was unsuccessful :( : "+ e.getMessage());
       }
     } else {
       System.out.println("User Cancelled");
+    }
+  }
+
+  public static void startFunFacts() {
+    System.out.println("\n JavaFX is Open!! In the meantime, See funfacts about Lexical Analyzers below :D \n");
+    funFactsTimer = new Timer();
+    funFactsTimer.scheduleAtFixedRate(new TimerTask() {
+      @Override
+      public void run() {
+        String funFact = funFactsManager.getRandomFunFact();
+        if (funFact != null) {
+          System.out.println(funFact);
+          userLog.append("Fun Fact: ").append(funFact).append("\n");
+        } else {
+          funFactsTimer.cancel();
+        }
+      }
+    }, 0, 6000); // Show a fun fact every 3 seconds
+  }
+
+  public static void stopFunFacts() {
+    if (funFactsTimer != null) {
+      funFactsTimer.cancel();
     }
   }
 

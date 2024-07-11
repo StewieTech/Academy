@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LexicalTest {
 
+
+
     @Test
     public void testConsumerNumber() {
         System.out.println("\nTesting ConsumeNumber");
@@ -32,7 +34,7 @@ public class LexicalTest {
         List<Tokens> tokens = lexeme.codeToTokens();
 
         assertEquals(4, tokens.size());
-        System.out.println("SUCESS: Identifier and keyword tokens were created!!");
+        System.out.println("SUCCESS: Identifier and keyword tokens were created!!");
 
         assertEquals(TokenType.KEYWORD, tokens.get(0).getType());
         System.out.println("First keyword matches!!");
