@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Academy Registration Form</title>
+    <!-- Include the Tailwind CSS stylesheet -->
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+</head>
+
+<body class="bg-purple-900 text-white">
+    <h1 class="text-3xl text-center font-bold mb-10">
+        Academy Registration Form
+    </h1>
+
+    <form action="#" method="POST" class="max-w-lg mx-auto">
+        <fieldset class="border border-purple-500 p-4 rounded-md">
+            <legend class="text-xl font-bold mb-4">Personal Information</legend>
+            <div class="mb-4">
+              <label class="block font-bold mb-2" for="name">Name:</label>
+              <input
+                class="w-full px-3 py-2 border border-gray-500 rounded-md text-black"
+                type="text"
+                id="name"
+                name="name"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label class="block font-bold mb-2" for="email">Email:</label>
+              <input
+                class="w-full px-3 py-2 border border-gray-500 rounded-md text-black"
+                type="email"
+                id="email"
+                name="email"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label class="block font-bold mb-2" for="phone">Phone:</label>
+              <input
+                class="w-full px-3 py-2 border border-gray-500 rounded-md text-black"
+                type="tel"
+                id="phone"
+                name="phone"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label class="block font-bold mb-2" for="address">Address:</label>
+              <textarea
+                class="w-full px-3 py-2 border border-gray-500 rounded-md text-black"
+                id="address"
+                name="address"
+                required
+              ></textarea>
+            </div>
+            <div class="mb-4">
+              <label class="block font-bold mb-2" for="dob">Date of Birth:</label>
+              <input
+                class="w-full px-3 py-2 border border-gray-500 rounded-md text-black"
+                type="date"
+                id="dob"
+                name="dob"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label class="block font-bold mb-2" for="gender">Gender:</label>
+              <select
+                class="w-full px-3 py-2 border border-gray-500 rounded-md text-black"
+                id="gender"
+                name="gender"
+                required
+              >
+                <option value="" disabled selected>Select your gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+          </fieldset>
+    
+          <fieldset class="border border-purple-500 p-4 rounded-md mt-4">
+            <legend class="text-xl font-bold mb-4">Academic Information</legend>
+            <div class="mb-4">
+              <label class="block font-bold mb-2" for="course">Course:</label>
+              <select
+                class="w-full px-3 py-2 border border-gray-500 rounded-md text-black"
+                id="course"
+                name="course"
+                required
+              >
+                <option value="" disabled selected>Course</option>
+                <option value="web">Web Development</option>
+                <option value="mobile">Mobile Development</option>
+                <option value="uiux">UI/UX</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label class="block font-bold mb-2" for="school">School:</label>
+              <select
+                class="w-full px-3 py-2 border border-gray-500 rounded-md text-black"
+                id="school"
+                name="school"
+                required
+              >
+                <option value="" disabled selected>School</option>
+                <option value="toronto">Toronto Campus</option>
+                <option value="vancouver">Vancouver Campus</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <fieldset class="border border-purple-500 p-4 rounded-md mt-4">
+            <legend class="text-xl font-bold mb-4">Account Information</legend>
+            <div class="mb-4">
+              <label class="block font-bold mb-2" for="username">Username:</label>
+              <input
+                class="w-full px-3 py-2 border border-gray-500 rounded-md text-black"
+                type="text"
+                id="username"
+                name="username"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label class="block font-bold mb-2" for="password">Password:</label>
+              <input
+                class="w-full px-3 py-2 border border-gray-500 rounded-md text-black"
+                type="password"
+                id="password"
+                name="password"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label class="block font-bold mb-2" for="confirm-password"
+                >Confirm Password:</label
+              >
+              <input
+                class="w-full px-3 py-2 border border-gray-500 rounded-md text-black"
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+                required
+              />
+            </div>
+          </fieldset>
+
+          <div class="mb-4 flex justify-center mt-5">
+            <button
+              class="px-4 py-2 rounded-md bg-purple-500 text-white font-bold"
+              type="submit"
+            >
+              Submit
+            </button>
+        </div>
+
+    </form>
+</body>
+
+
+</html>

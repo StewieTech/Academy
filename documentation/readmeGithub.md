@@ -29,6 +29,10 @@ git diff -> shows changes
 git diff -- cached -> shows changes in the staging area
 git restore --staged .  -> If I have added some changes in the staging area but I no longer want them
 git restore .-> discards all changes in the working directory
+git push origin --delete <branch-name>
+git branch -d <branch-name>
+git reset --hard origin/<branch-name>
+
 ```
 ---
 ### Git Log
@@ -69,3 +73,17 @@ Here are some of the format specifiers and their meanings:
 ### Documentation Links
 ```
 right click the project explorer, click import, browse folder to the git cloned respository. Then select the POM file. 
+
+y: Stage this hunk (yes).
+n: Do not stage this hunk (no).
+q: Quit; do not stage this hunk or any of the remaining hunks.
+a: Stage this hunk and all the remaining hunks in the file.
+d: Do not stage this hunk or any of the remaining hunks in the file.
+j: Leave this hunk undecided, see the next undecided hunk.
+J: Leave this hunk undecided, see the next undecided hunk in the previous chunk.
+g: Select a hunk to go to.
+/: Search for a hunk matching the given regex.
+s: Split the current hunk into smaller hunks.
+e: Manually edit the current hunk.
+p: Toggle the state of the line in the hunk between staged and not staged.
+?: Print help.

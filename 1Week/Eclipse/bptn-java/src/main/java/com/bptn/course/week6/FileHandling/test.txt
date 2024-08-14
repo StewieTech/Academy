@@ -1,0 +1,11 @@
+text 1
+text 2
+text 3
+	City Table
+cityId: integer not null GENERATED ALWAYS AS IDENTITY primary key
+name: varchar not null
+weatherCityId : integer not null
+countryId : integer not null foreign key
+timezone : varchar not null
+latitude: numeric not null
+longitude: numeric not null
