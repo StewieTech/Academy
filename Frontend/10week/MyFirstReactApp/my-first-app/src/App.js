@@ -1,22 +1,18 @@
-import React from 'react'
-import './App.css'
-import UserProfile from './component/UserProfile/UserProfile';
-import UserPosts from './component/UserPosts/UserPosts'
+import React from "react"
+import { SumProvider } from "./component/SumContext/SumContext"
+import { InputComponent } from "./component/InputComponent/InputComponent"
+import DisplayComponent from "./component/DisplayComponent/DisplayComponent"
+import BrowserRo
 
-const userData = {
-  name: 'John Doe',
-  posts: ['Post 1','Post 2','Post 3']
-};
-
-
-
-const App = () => {
+function App  ()  {
   return (
-    <div className = "App">
-      <UserProfile name = {userData.name}/>
-      <UserPosts posts  = {userData.posts} />
-      
+    <SumProvider>
+      <h1> Sum Two Numbers</h1>
+    <div>
+    <InputComponent />
+    <DisplayComponent />
     </div>
+    </SumProvider>
   )
 }
 
